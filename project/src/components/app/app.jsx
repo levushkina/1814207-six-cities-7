@@ -3,14 +3,17 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import PropTypes from 'prop-types';
 import Main from '../main/main';
-import Room from '../room/room';
+import Offer from '../offer/offer';
 import Favorites from '../favorites/favorites';
 import SignIn from '../sign-in/sign-in';
 import NotFound from '../not-found/not-found';
+import offerProp from '../offer/offer.prop';
 
 
 function App(props) {
   const {places, placesCount} = props;
+
+  const favoritesPlaces = places.filter((place) => place['is_favorite']);
 
   return (
     <BrowserRouter>
@@ -21,11 +24,11 @@ function App(props) {
         <Route exact path={AppRoute.SIGN_IN}>
           <SignIn/>;
         </Route>
-        <Route exact path={AppRoute.FSVORITES}>
-          <Favorites/>;
+        <Route exact path={AppRoute.FAVORITES}>
+          <Favorites places={favoritesPlaces}/>;
         </Route>
-        <Route exact path={AppRoute.DEV_ROOM}>
-          <Room/>;
+        <Route exact path={AppRoute.OFFER}>
+          <Offer/>;
         </Route>
         <Route>
           <NotFound/>;
@@ -36,16 +39,7 @@ function App(props) {
 }
 
 App.propTypes = {
-  places: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      rating: PropTypes.string,
-      mark: PropTypes.string,
-      price: PropTypes.string,
-      imageUrl: PropTypes.string,
-    }),
-  ).isRequired,
+  places: PropTypes.arrayOf(offerProp).isRequired,
   placesCount: PropTypes.number.isRequired,
 };
 

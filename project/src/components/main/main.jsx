@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlaceCard from '../place-card/place-card';
+import PlacesList from '../places-list/places-list';
 import Header from '../header/header';
+import offerProp from '../offer/offer.prop';
 
 function Main(props) {
   const {places, placesCount} = props;
@@ -68,9 +69,7 @@ function Main(props) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {places.map((place, i) => <PlaceCard key={place.name} place={place} />)}
-              </div>
+              <PlacesList places={places}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
@@ -83,16 +82,7 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  places: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      rating: PropTypes.string,
-      mark: PropTypes.string,
-      price: PropTypes.number,
-      imageUrl: PropTypes.string,
-    }),
-  ).isRequired,
+  places: PropTypes.arrayOf(offerProp).isRequired,
   placesCount: PropTypes.number.isRequired,
 };
 
