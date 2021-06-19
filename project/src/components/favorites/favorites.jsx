@@ -3,17 +3,13 @@ import PropTypes from 'prop-types';
 import Header from '../header/header';
 import FavoriteLocation from '../favorite-location/favorite-location';
 import offerProp from '../offer/offer.prop';
+import {sortedPlacesByCity} from '../../utils';
 
 
 function Favorites(props) {
   const {places} = props;
-
-  const cities = [...new Set(places.map((place) => place.city.name))];
-
-  const _placesGroupByCity = cities.map((city) => ({
-    name: city,
-    places: places.filter((place) => place.city.name === city),
-  }));
+  const placesGroupByCity = sortedPlacesByCity(places);
+  const cities = Object.keys(placesGroupByCity);
 
   return (
     <div className="page">
@@ -23,7 +19,7 @@ function Favorites(props) {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {_placesGroupByCity.map((city, i) => <FavoriteLocation key={city.name} city={city} />)}
+              {cities.map((city, i) => <FavoriteLocation key={city} city={city} places={placesGroupByCity[city]}/>)}
             </ul>
           </section>
         </div>
@@ -36,7 +32,6 @@ function Favorites(props) {
     </div>
   );
 }
-
 
 Favorites.propTypes = {
   places: PropTypes.arrayOf(offerProp).isRequired,

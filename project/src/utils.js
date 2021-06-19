@@ -1,6 +1,23 @@
-const convertRatingToPercent = (placeRating) => {
-  const MAX_RATING = 5;
-  return `${placeRating / MAX_RATING * 100}%`;
-};
+import { MAX_RATING } from './const';
 
-export default convertRatingToPercent;
+export const convertRatingToPercent = (placeRating) => `${placeRating / MAX_RATING * 100}%`;
+
+export const convertSnekeToCamelCase = (data) => JSON.parse(JSON.stringify(data).replace(
+  /(_\w)\w+":/g, (match) => match[1].toUpperCase() + match.substring(2),
+));
+
+
+export const sortedPlacesByCity = (places) => {
+  const placesGroupByCity = {};
+
+  places.forEach((place) => {
+    const cityName = place.city.name;
+
+    if (placesGroupByCity[cityName]) {
+      placesGroupByCity[cityName].push(place);
+    } else {
+      placesGroupByCity[cityName] = [place];
+    }
+  });
+  return placesGroupByCity;
+};

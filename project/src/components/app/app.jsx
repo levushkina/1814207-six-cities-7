@@ -13,7 +13,7 @@ import offerProp from '../offer/offer.prop';
 function App(props) {
   const {places, placesCount} = props;
 
-  const favoritesPlaces = places.filter((place) => place['is_favorite']);
+  const favoritesPlaces = places.filter((place) => place.isFavorite);
 
   return (
     <BrowserRouter>

@@ -2,28 +2,22 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import offerProp from '../offer/offer.prop';
-import convertRatingToPercent from '../../utils';
+import {convertRatingToPercent} from '../../utils';
 
 
 function PlaceCard(props) {
   const {place, onPlaceMouseOver} = props;
 
-  const _getMark = () => {
-    if (place['is_premium']) {
-      return (
+  return (
+    <article className="cities__place-card place-card" onMouseOver={onPlaceMouseOver}>
+      {place.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
-      );
-    }
-  };
-
-  return (
-    <article className="cities__place-card place-card" onMouseOver={onPlaceMouseOver}>
-      {_getMark()}
+      )}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${place.id}`}>
-          <img className="place-card__image" src={place['preview_image']} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={place.previewImage} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
       <div className="place-card__info">

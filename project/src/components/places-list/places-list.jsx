@@ -4,8 +4,8 @@ import PlaceCard from '../place-card/place-card';
 import offerProp from '../offer/offer.prop';
 
 function PlacesList(props) {
-  const [currentPlace, setCurrentPlace] = useState(null);
   const {places} = props;
+  const [currentPlace, setCurrentPlace] = useState(null);
 
   const handlePlaceMouseOver = (id) => {
     setCurrentPlace(id);

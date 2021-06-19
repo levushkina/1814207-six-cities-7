@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import offerProp from '../offer/offer.prop';
-import convertRatingToPercent from '../../utils';
+import {convertRatingToPercent} from '../../utils';
 
 
 function FavoriteItem(props) {
@@ -11,7 +11,7 @@ function FavoriteItem(props) {
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${place.id}`}>
-          <img className="place-card__image" src={place['preview_image']} width="150" height="110" alt="Place image"/>
+          <img className="place-card__image" src={place.previewImage} width="150" height="110" alt="Place image"/>
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">
