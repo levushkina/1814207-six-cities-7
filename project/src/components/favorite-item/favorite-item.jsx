@@ -1,36 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import offerProp from '../offer/offer.prop';
 import {convertRatingToPercent} from '../../utils';
 
 
-function PlaceCard(props) {
-  const {place, onPlaceMouseOver} = props;
+function FavoriteItem(props) {
+  const {place} = props;
 
   return (
-    <article className="cities__place-card place-card" onMouseOver={onPlaceMouseOver}>
-      {place.isPremium && (
-        <div className="place-card__mark">
-          <span>Premium</span>
-        </div>
-      )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article className="favorites__card place-card">
+      <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${place.id}`}>
-          <img className="place-card__image" src={place.previewImage} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={place.previewImage} width="150" height="110" alt="Place image"/>
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{place.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">To bookmarks</span>
+            <span className="visually-hidden">In bookmarks</span>
           </button>
         </div>
         <div className="place-card__rating rating">
@@ -48,9 +42,8 @@ function PlaceCard(props) {
   );
 }
 
-PlaceCard.propTypes = {
+FavoriteItem.propTypes = {
   place: offerProp,
-  onPlaceMouseOver: PropTypes.func,
 };
 
-export default PlaceCard;
+export default FavoriteItem;

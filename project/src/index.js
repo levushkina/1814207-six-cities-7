@@ -1,53 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
+import offers from './mocks/offers';
+import {convertSnekeToCamelCase} from './utils';
 
-
-const PLACES = [
-  {
-    name: 'Beautiful &amp; luxurious apartment at great location',
-    type: 'Apartment',
-    rating: '80%',
-    mark: 'Premium',
-    price: 120,
-    imageUrl: 'img/apartment-01.jpg',
-  },
-  {
-    name: 'Wood and stone place',
-    type: 'Private room',
-    rating: '80%',
-    price: 80,
-    imageUrl: 'img/room.jpg',
-  },
-  {
-    name: 'Canal View Prinsengracht',
-    type: 'Apartment',
-    rating: '80%',
-    price: 132,
-    imageUrl: 'img/apartment-02.jpg',
-  },
-  {
-    name: 'Nice, cozy, warm big bed apartment',
-    type: 'Apartment',
-    rating: '100%',
-    price: 180,
-    imageUrl: 'img/apartment-03.jpg',
-    mark: 'Premium',
-  },
-  {
-    name: 'Wood and stone place',
-    type: 'Private room',
-    rating: '80%',
-    price: 132,
-    imageUrl: 'img/room.jpg',
-  },
-];
 
 const PLACES_COUNT = 312;
 
-
 ReactDOM.render(
   <React.StrictMode>
-    <App places={PLACES} placesCount={PLACES_COUNT}/>
+    <App places={convertSnekeToCamelCase(offers)} placesCount={PLACES_COUNT}/>
   </React.StrictMode>,
   document.getElementById('root'));
