@@ -23,3 +23,5 @@ export const sortedPlacesByCity = (places) => {
 };
 
 export const convertDate = (date) => new Date(date).toLocaleString('en-GB', {month: 'long', year: 'numeric'});
+
+export const filterOfferByCity = (city, offers) => offers.filter((offer) => offer.city.name === city);

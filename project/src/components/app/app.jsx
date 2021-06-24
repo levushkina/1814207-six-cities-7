@@ -12,7 +12,7 @@ import reviewsItemProp from '../reviews-item/reviews-item.prop';
 
 
 function App(props) {
-  const {places, reviews, placesCount} = props;
+  const {places, reviews} = props;
 
   const favoritesPlaces = places.filter((place) => place.isFavorite);
   const getPlacesNear = () => places.slice(0, 3);
@@ -21,7 +21,7 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <Main places={places} placesCount={placesCount}/>;
+          <Main/>;
         </Route>
         <Route exact path={AppRoute.SIGN_IN}>
           <SignIn/>;
@@ -42,7 +42,6 @@ function App(props) {
 
 App.propTypes = {
   places: PropTypes.arrayOf(offerProp).isRequired,
-  placesCount: PropTypes.number.isRequired,
   reviews: PropTypes.arrayOf(reviewsItemProp).isRequired,
 };
 

@@ -1,15 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
 import offers from './mocks/offers';
 import reviews from './mocks/reviews';
 import {convertSnekeToCamelCase} from './utils';
+import {reduser} from './store/reduser';
 
 
-const PLACES_COUNT = 312;
+const store = createStore(
+  reduser,
+  composeWithDevTools(),
+);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App places={convertSnekeToCamelCase(offers)} reviews={convertSnekeToCamelCase(reviews)} placesCount={PLACES_COUNT}/>
+    <Provider store={store}>
+      <App places={convertSnekeToCamelCase(offers)} reviews={convertSnekeToCamelCase(reviews)}/>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'));
