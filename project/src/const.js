@@ -31,3 +31,12 @@ export const PlaceCardClassName = {
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const DEFAULT_CITY = 'Paris';
+
+export const sortOption = {
+  DEFAULT: 'Popular',
+  PRICE_LOW: 'Price: low to high',
+  PRICE_HIGH: 'Price: high to low',
+  RATING: 'Top rated first',
+};
+
+export const SORT_TYPES = ['DEFAULT', 'PRICE_LOW', 'PRICE_HIGH', 'RATING'];

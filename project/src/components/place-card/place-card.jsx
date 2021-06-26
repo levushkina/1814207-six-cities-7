@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import offerProp from '../offer/offer.prop';
-import {convertRatingToPercent} from '../../utils';
-import {PlacesListType, PlaceCardClassName} from '../../const';
+import { convertRatingToPercent } from '../../utils';
+import { PlacesListType, PlaceCardClassName } from '../../const';
 
 
 function PlaceCard(props) {

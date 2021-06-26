@@ -1,16 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { ActionCreator } from '../../store/action';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card';
 import offerProp from '../offer/offer.prop';
-import {PlacesListType, PlacesListClassName} from '../../const';
+import { PlacesListType, PlacesListClassName } from '../../const';
 
 
-function PlacesList(props) {
-  const {places, type = PlacesListType.MAIN} = props;
-  const [currentPlace, setCurrentPlace] = useState(null);
-
+function PlacesList({places, type = PlacesListType.MAIN, onChangeActiveCard}) {
   const handlePlaceMouseOver = (id) => {
-    setCurrentPlace(id);
+    onChangeActiveCard(id);
   };
 
   return (
@@ -19,7 +18,6 @@ function PlacesList(props) {
         <PlaceCard key={place.id}
           place={place}
           onPlaceMouseOver = {() => handlePlaceMouseOver(place.id)}
-          currentPlace={currentPlace}
           type={type}
         />
       ))}
@@ -27,9 +25,17 @@ function PlacesList(props) {
   );
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  onChangeActiveCard(id) {
+    dispatch(ActionCreator.changeActiveCard(id));
+  },
+});
+
 PlacesList.propTypes = {
   places: PropTypes.arrayOf(offerProp).isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  onChangeActiveCard: PropTypes.func.isRequired,
 };
 
-export default PlacesList;
+export { PlacesList };
+export default connect(null, mapDispatchToProps)(PlacesList);

@@ -1,14 +1,21 @@
 import { useEffect, useState } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {URL_MARKER_DEFAULT} from '../const';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../const';
 
-function useMapMarker(map, places) {
+
+function useMapMarker(map, places, activeCardId) {
   const [markers, setMarkers] = useState({});
   const mapMarkers = [];
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,
+    iconSize: [30, 40],
+    iconAnchor: [15, 40],
+  });
+
+  const activeCustomIcon = leaflet.icon({
+    iconUrl: URL_MARKER_CURRENT,
     iconSize: [30, 40],
     iconAnchor: [15, 40],
   });
@@ -23,7 +30,7 @@ function useMapMarker(map, places) {
         const marker = leaflet
           .marker(
             [location.latitude, location.longitude],
-            {icon: defaultCustomIcon},
+            {icon: activeCardId === id ? activeCustomIcon : defaultCustomIcon},
           )
           .addTo(map);
         mapMarkers.push(marker);
@@ -33,7 +40,7 @@ function useMapMarker(map, places) {
         mapMarkers,
       });
     }
-  }, [map, places]);
+  }, [map, places, activeCardId]);
 }
 
 export default useMapMarker;
