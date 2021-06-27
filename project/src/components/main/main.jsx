@@ -11,10 +11,9 @@ import SortingForm from '../sorting-form/sorting-form';
 import { CITIES } from '../../const';
 import { sortOffers, filterOfferByCity } from '../../utils';
 
-function Main(props) {
-  const {offers, city, onCityChange, onSortTypeChange, sortType} = props;
-  const filteredOffers = filterOfferByCity(city, offers);
-  const sortedOffers = sortOffers(sortType, filteredOffers);
+
+function Main({offers, city, onCityChange, onSortTypeChange, sortType}) {
+  const sortedOffers = sortOffers(sortType, filterOfferByCity(city, offers));
   const [activeCard, setActiveCard] = useState(0);
 
   return (

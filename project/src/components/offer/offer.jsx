@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import Header from '../header/header';
 import PropTypes from 'prop-types';
 import ReviewsForm from '../reviews-form/reviews-form.jsx';
@@ -9,8 +10,10 @@ import Map from '../map/map';
 import {PlacesListType} from '../../const';
 import PlacesList from '../places-list/places-list';
 
-function Offer({reviews, nearPlaces}) {
+
+function Offer({reviews, offers}) {
   const [activeCard, setActiveCard] = useState(0);
+  const nearPlaces = offers.slice(0, 3);
 
   return (
     <div className="page">
@@ -157,9 +160,14 @@ function Offer({reviews, nearPlaces}) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+});
+
 Offer.propTypes = {
   reviews: PropTypes.arrayOf(reviewsItemProp).isRequired,
-  nearPlaces: PropTypes.arrayOf(offerProp).isRequired,
+  offers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
-export default Offer;
+export {Offer};
+export default connect(mapStateToProps, null)(Offer);
