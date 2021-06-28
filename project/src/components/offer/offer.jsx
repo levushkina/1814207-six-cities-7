@@ -6,7 +6,7 @@ import ReviewsList from '../reviews-list/reviews-list.jsx';
 import reviewsItemProp from '../reviews-item/reviews-item.prop';
 import offerProp from '../offer/offer.prop';
 import Map from '../map/map';
-import {PlasesListType} from '../../const';
+import {PlacesListType} from '../../const';
 import PlacesList from '../places-list/places-list';
 
 function Offer({reviews, nearPlaces}) {
@@ -147,7 +147,7 @@ function Offer({reviews, nearPlaces}) {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <PlacesList places={nearPlaces} type={PlasesListType.NEAR}/>
+            <PlacesList places={nearPlaces} type={PlacesListType.NEAR}/>
           </section>
         </div>
       </main>

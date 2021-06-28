@@ -4,7 +4,7 @@ import PlacesList from '../places-list/places-list';
 import Header from '../header/header';
 import offerProp from '../offer/offer.prop';
 import Map from '../map/map';
-import {PlasesListType} from '../../const';
+
 
 function Main(props) {
   const {places, placesCount} = props;
@@ -71,7 +71,7 @@ function Main(props) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <PlacesList places={places} type={PlasesListType.MAIN}/>
+              <PlacesList places={places}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">

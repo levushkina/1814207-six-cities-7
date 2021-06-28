@@ -13,17 +13,17 @@ export const URL_MARKER_DEFAULT = '../img/pin.svg';
 
 export const URL_MARKER_CURRENT = '../img/pin-active.svg';
 
-export const PlasesListType = {
-  NEAR: 'near',
-  MAIN: 'main',
+export const PlacesListType = {
+  NEAR: 'NEAR',
+  MAIN: 'MAIN',
 };
 
-export const PlasesListClassName = {
+export const PlacesListClassName = {
   NEAR: 'near-places__list ',
   MAIN: 'cities__places-list',
 };
 
-export const PlaseCardClassName = {
+export const PlaceCardClassName = {
   NEAR: 'near-places__card',
   MAIN: 'cities__place-card',
 };

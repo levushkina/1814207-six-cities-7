@@ -3,16 +3,14 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import offerProp from '../offer/offer.prop';
 import {convertRatingToPercent} from '../../utils';
-import {PlasesListType, PlaseCardClassName} from '../../const';
+import {PlacesListType, PlaceCardClassName} from '../../const';
 
 
 function PlaceCard(props) {
-  const {place, onPlaceMouseOver, type} = props;
-
-  const plaseCardClassName = type === PlasesListType.NEAR ? PlaseCardClassName.NEAR : PlaseCardClassName.MAIN;
+  const {place, onPlaceMouseOver, type = PlacesListType.MAIN} = props;
 
   return (
-    <article className={`place-card ${plaseCardClassName}`} onMouseOver={onPlaceMouseOver}>
+    <article className={`place-card ${PlaceCardClassName[type]}`} onMouseOver={onPlaceMouseOver}>
       {place.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
