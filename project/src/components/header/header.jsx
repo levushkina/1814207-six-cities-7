@@ -1,7 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import AuthLink from '../auth-link/auth-link';
+import ProfileLink from '../profile-link/profile-link';
 
-function Header(props) {
+function Header({authorizationStatus, userEmail}) {
   return (
     <header className="header">
       <div className="container">
@@ -14,16 +18,10 @@ function Header(props) {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <a className="header__nav-link header__nav-link--profile" href="#">
-                  <div className="header__avatar-wrapper user__avatar-wrapper">
-                  </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                </a>
+                {userEmail && <ProfileLink userEmail={userEmail}/> }
               </li>
               <li className="header__nav-item">
-                <a className="header__nav-link" href="#">
-                  <span className="header__signout">Sign out</span>
-                </a>
+                <AuthLink/>
               </li>
             </ul>
           </nav>
@@ -33,4 +31,15 @@ function Header(props) {
   );
 }
 
-export default Header;
+Header.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  userEmail: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+  userEmail: state.userEmail,
+});
+
+export {Header};
+export default connect(mapStateToProps)(Header);
