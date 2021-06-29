@@ -27,3 +27,7 @@ export const PlaceCardClassName = {
   NEAR: 'near-places__card',
   MAIN: 'cities__place-card',
 };
+
+export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export const DEFAULT_CITY = 'Paris';
