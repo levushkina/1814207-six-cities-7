@@ -5,6 +5,7 @@ import Header from '../header/header';
 import offerProp from '../offer/offer.prop';
 import Map from '../map/map';
 
+
 function Main(props) {
   const {places, placesCount} = props;
 

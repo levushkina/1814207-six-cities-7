@@ -21,3 +21,5 @@ export const sortedPlacesByCity = (places) => {
   });
   return placesGroupByCity;
 };
+
+export const convertDate = (date) => new Date(date).toLocaleString('en-GB', {month: 'long', year: 'numeric'});

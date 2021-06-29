@@ -8,12 +8,14 @@ import Favorites from '../favorites/favorites';
 import SignIn from '../sign-in/sign-in';
 import NotFound from '../not-found/not-found';
 import offerProp from '../offer/offer.prop';
+import reviewsItemProp from '../reviews-item/reviews-item.prop';
 
 
 function App(props) {
-  const {places, placesCount} = props;
+  const {places, reviews, placesCount} = props;
 
   const favoritesPlaces = places.filter((place) => place.isFavorite);
+  const getPlacesNear = () => places.slice(0, 3);
 
   return (
     <BrowserRouter>
@@ -28,7 +30,7 @@ function App(props) {
           <Favorites places={favoritesPlaces}/>;
         </Route>
         <Route exact path={AppRoute.OFFER}>
-          <Offer/>;
+          <Offer reviews={reviews} nearPlaces={getPlacesNear()}/>;
         </Route>
         <Route>
           <NotFound/>;
@@ -41,6 +43,7 @@ function App(props) {
 App.propTypes = {
   places: PropTypes.arrayOf(offerProp).isRequired,
   placesCount: PropTypes.number.isRequired,
+  reviews: PropTypes.arrayOf(reviewsItemProp).isRequired,
 };
 
 export default App;

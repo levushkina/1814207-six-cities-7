@@ -35,6 +35,40 @@ const offers = [
   },
   {
     'id': 2,
+    'bedrooms': 2,
+    'city': {
+      'location': {
+        'latitude': 52.369553943508,
+        'longitude': 4.85309666406198,
+        'zoom': 10,
+      },
+      'name': 'Amsterdam',
+    },
+    'description': 'River by the unique lightness of Amsterdam',
+    'goods': ['Heating', 'Kitchen', 'Coffee machine', 'Dishwasher'],
+    'host': {
+      'avatar_url': 'img/1.png',
+      'id': 3,
+      'is_pro': true,
+      'name': 'Angelina',
+    },
+    'images': ['img/apartment-03.jpg', 'img/2.png'],
+    'is_favorite': true,
+    'is_premium': true,
+    'location': {
+      'latitude': 52.3809553943508,
+      'longitude': 4.939309666406198,
+      'zoom': 8,
+    },
+    'max_adults': 1,
+    'preview_image': 'img/apartment-02.jpg',
+    'price': 105,
+    'rating': 2,
+    'title': 'River by the unique lightness',
+    'type': 'apartment',
+  },
+  {
+    'id': 3,
     'bedrooms': 1,
     'city': {
       'location': {
@@ -68,7 +102,7 @@ const offers = [
     'type': 'private room',
   },
   {
-    'id': 3,
+    'id': 4,
     'bedrooms': 3,
     'city': {
       'location': {
@@ -102,7 +136,7 @@ const offers = [
     'type': 'apartment',
   },
   {
-    'id': 4,
+    'id': 5,
     'bedrooms': 3,
     'city': {
       'location': {
@@ -135,6 +169,41 @@ const offers = [
     'title': 'Beautiful & luxurious studio at great location',
     'type': 'apartment',
   },
+  {
+    'id': 6,
+    'bedrooms': 1,
+    'city': {
+      'location': {
+        'latitude': 52.369553943508,
+        'longitude': 4.85309666406198,
+        'zoom': 10,
+      },
+      'name': 'Amsterdam',
+    },
+    'description': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    'goods': ['Heating', 'Kitchen', 'Coffee machine', 'Dishwasher'],
+    'host': {
+      'avatar_url': 'img/1.png',
+      'id': 3,
+      'is_pro': true,
+      'name': 'Angelina',
+    },
+    'images': ['img/apartment-03.jpg', 'img/2.png'],
+    'is_favorite': true,
+    'is_premium': true,
+    'location': {
+      'latitude': 52.3909553943508,
+      'longitude': 4.929309666406198,
+      'zoom': 8,
+    },
+    'max_adults': 2,
+    'preview_image': 'img/apartment-02.jpg',
+    'price': 135,
+    'rating': 4,
+    'title': 'View Prinsengracht',
+    'type': 'private room',
+  },
+
 ];
 
 export default offers;
