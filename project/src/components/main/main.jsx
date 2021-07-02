@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../../store/action';
 import PropTypes from 'prop-types';
@@ -15,6 +15,7 @@ function Main(props) {
   const {offers, city, onCityChange, onSortTypeChange, sortType} = props;
   const filteredOffers = filterOfferByCity(city, offers);
   const sortedOffers = sortOffers(sortType, filteredOffers);
+  const [activeCard, setActiveCard] = useState(0);
 
   return (
     <div className="page page--gray page--main">
@@ -30,11 +31,11 @@ function Main(props) {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{sortedOffers.length} places to stay in {city}</b>
               <SortingForm onSortTypeChange={onSortTypeChange} sortType={sortType}/>
-              <PlacesList places={sortedOffers}/>
+              <PlacesList places={sortedOffers} setActiveCard={setActiveCard}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map places={sortedOffers}/>
+                <Map places={sortedOffers} activeCardId={activeCard}/>
               </section>
             </div>
           </div>

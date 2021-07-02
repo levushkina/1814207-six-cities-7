@@ -9,7 +9,6 @@ const initialState = {
   city: DEFAULT_CITY,
   offers: formatedOffers,
   sortType: sortOption.DEFAULT,
-  activeCardId: 0,
 };
 
 const reduser = (state = initialState, action) => {
@@ -23,11 +22,6 @@ const reduser = (state = initialState, action) => {
       return {
         ...state,
         sortType: action.payload,
-      };
-    case ActionType.CHANGE_ACTIVE_CARD:
-      return {
-        ...state,
-        activeCardId: action.payload,
       };
     default:
       return state;

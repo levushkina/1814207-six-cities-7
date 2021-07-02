@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import offerProp from '../offer/offer.prop';
 import useMap from '../../hooks/use-map';
@@ -28,14 +27,9 @@ function Map({places, activeCardId}) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  activeCardId: state.activeCardId,
-});
-
 Map.propTypes = {
   places: PropTypes.arrayOf(offerProp).isRequired,
   activeCardId: PropTypes.number.isRequired,
 };
 
-export {Map};
-export default connect(mapStateToProps, null)(Map);
+export default Map;

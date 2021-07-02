@@ -1,15 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { ActionCreator } from '../../store/action';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card';
 import offerProp from '../offer/offer.prop';
 import { PlacesListType, PlacesListClassName } from '../../const';
 
 
-function PlacesList({places, type = PlacesListType.MAIN, onChangeActiveCard}) {
+function PlacesList({places, type = PlacesListType.MAIN, setActiveCard}) {
+
   const handlePlaceMouseOver = (id) => {
-    onChangeActiveCard(id);
+    setActiveCard(id);
   };
 
   return (
@@ -25,17 +24,10 @@ function PlacesList({places, type = PlacesListType.MAIN, onChangeActiveCard}) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  onChangeActiveCard(id) {
-    dispatch(ActionCreator.changeActiveCard(id));
-  },
-});
-
 PlacesList.propTypes = {
   places: PropTypes.arrayOf(offerProp).isRequired,
   type: PropTypes.string,
-  onChangeActiveCard: PropTypes.func.isRequired,
+  setActiveCard: PropTypes.func.isRequired,
 };
 
-export { PlacesList };
-export default connect(null, mapDispatchToProps)(PlacesList);
+export default PlacesList;

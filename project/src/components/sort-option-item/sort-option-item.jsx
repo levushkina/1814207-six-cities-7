@@ -8,10 +8,7 @@ function SortOptionItem({type, sortType, onSortTypeChange}) {
     <li
       className={`places__option ${sortType === sortOption[type] && 'places__option--active'}`}
       tabIndex="0"
-      onClick={(evt) => {
-        evt.preventDefault();
-        onSortTypeChange(sortOption[type]);
-      }}
+      onClick={() => onSortTypeChange(sortOption[type])}
     >
       {sortOption[type]}
     </li>
