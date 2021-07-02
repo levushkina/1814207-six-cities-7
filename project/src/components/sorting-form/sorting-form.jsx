@@ -8,6 +8,7 @@ function SortingForm({sortType, onSortTypeChange}) {
   const handleSortingClick = () => {
     setSortingPopupView(!sortingPopupView);
   };
+  const sortOptionItems = SORT_TYPES.map((type) => <SortOptionItem key={type} type={type} sortType={sortType} onSortTypeChange={onSortTypeChange}/>);
 
   return (
     <form className="places__sorting" action="#" method="get" onClick={() => handleSortingClick()}>
@@ -19,7 +20,7 @@ function SortingForm({sortType, onSortTypeChange}) {
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${sortingPopupView && 'places__options--opened'}`}>
-        {SORT_TYPES.map((type) => (<SortOptionItem key={type} type={type} sortType={sortType} onSortTypeChange={onSortTypeChange}/>))}
+        {sortOptionItems}
       </ul>
     </form>
   );
