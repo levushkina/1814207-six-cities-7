@@ -1,18 +1,16 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import offerProp from '../offer/offer.prop';
-
 import useMap from '../../hooks/use-map';
 import useMapMarkers from '../../hooks/use-map-markers';
 
-function Map(props) {
-  const {places} = props;
+function Map({places, activeCardId}) {
   const mapRef = useRef(null);
   const city = places.length > 0 ? places[0].city.location : '';
 
   const map = useMap(mapRef, city);
 
-  useMapMarkers(map, places);
+  useMapMarkers(map, places, activeCardId);
 
   useEffect(() => {
     if (map) {
@@ -31,6 +29,7 @@ function Map(props) {
 
 Map.propTypes = {
   places: PropTypes.arrayOf(offerProp).isRequired,
+  activeCardId: PropTypes.number.isRequired,
 };
 
 export default Map;

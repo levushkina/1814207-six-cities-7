@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../header/header';
 import PropTypes from 'prop-types';
 import ReviewsForm from '../reviews-form/reviews-form.jsx';
@@ -10,6 +10,8 @@ import {PlacesListType} from '../../const';
 import PlacesList from '../places-list/places-list';
 
 function Offer({reviews, nearPlaces}) {
+  const [activeCard, setActiveCard] = useState(0);
+
   return (
     <div className="page">
       <Header />
@@ -141,13 +143,13 @@ function Offer({reviews, nearPlaces}) {
             </div>
           </div>
           <section className="property__map map">
-            <Map places={nearPlaces}/>
+            <Map places={nearPlaces} activeCardId={activeCard}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <PlacesList places={nearPlaces} type={PlacesListType.NEAR}/>
+            <PlacesList places={nearPlaces} type={PlacesListType.NEAR} setActiveCard={setActiveCard}/>
           </section>
         </div>
       </main>

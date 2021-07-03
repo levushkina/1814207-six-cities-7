@@ -1,14 +1,14 @@
 import { ActionType } from './action';
 import offers from '../mocks/offers';
-import { DEFAULT_CITY } from '../const';
-import { convertSnekeToCamelCase, filterOfferByCity } from '../utils';
+import { DEFAULT_CITY, sortOption } from '../const';
+import { convertSnekeToCamelCase } from '../utils';
 
 const formatedOffers = convertSnekeToCamelCase(offers);
 
 const initialState = {
   city: DEFAULT_CITY,
   offers: formatedOffers,
-  filteredOffers: filterOfferByCity(DEFAULT_CITY, formatedOffers),
+  sortType: sortOption.DEFAULT,
 };
 
 const reduser = (state = initialState, action) => {
@@ -18,10 +18,10 @@ const reduser = (state = initialState, action) => {
         ...state,
         city: action.payload,
       };
-    case ActionType.GET_OFFERS_BY_CITY:
+    case ActionType.CHANGE_SORT_TYPE:
       return {
         ...state,
-        filteredOffers: filterOfferByCity(action.payload, state.offers),
+        sortType: action.payload,
       };
     default:
       return state;

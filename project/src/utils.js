@@ -1,4 +1,5 @@
-import { MAX_RATING } from './const';
+import { MAX_RATING, sortOption } from './const';
+
 
 export const convertRatingToPercent = (placeRating) => `${placeRating / MAX_RATING * 100}%`;
 
@@ -25,3 +26,15 @@ export const sortedPlacesByCity = (places) => {
 export const convertDate = (date) => new Date(date).toLocaleString('en-GB', {month: 'long', year: 'numeric'});
 
 export const filterOfferByCity = (city, offers) => offers.filter((offer) => offer.city.name === city);
+
+export const sortOffers = (type, offers) => {
+  switch (type) {
+    case sortOption.PRICE_LOW:
+      return offers.sort((a, b) => a.price - b.price);
+    case sortOption.PRICE_HIGH:
+      return offers.sort((a, b) => b.price - a.price);
+    case sortOption.RATING:
+      return offers.sort((a, b) => b.rating - a.rating);
+    default: return offers.sort((a, b) => a.id - b.id);
+  }
+};
