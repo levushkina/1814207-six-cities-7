@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { ActionCreator } from '../../store/action';
+import { changeCity, changeSortType } from '../../store/action';
 import PropTypes from 'prop-types';
 import PlacesList from '../places-list/places-list';
 import Header from '../header/header';
@@ -10,6 +10,7 @@ import CitiestList from '../cities-list/cities-list';
 import SortingForm from '../sorting-form/sorting-form';
 import { CITIES } from '../../const';
 import { sortOffers, filterOfferByCity } from '../../utils';
+import { getOffers, getSortType, getCity } from '../../store/offers/selectors';
 
 
 function Main({offers, city, onCityChange, onSortTypeChange, sortType}) {
@@ -45,17 +46,17 @@ function Main({offers, city, onCityChange, onSortTypeChange, sortType}) {
 }
 
 const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: state.offers,
-  sortType: state.sortType,
+  city: getCity(state),
+  offers: getOffers(state),
+  sortType: getSortType(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCityChange(city) {
-    dispatch(ActionCreator.changeCity(city));
+    dispatch(changeCity(city));
   },
   onSortTypeChange(sortType) {
-    dispatch(ActionCreator.changeSortType(sortType));
+    dispatch(changeSortType(sortType));
   },
 });
 

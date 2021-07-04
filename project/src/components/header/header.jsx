@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AuthLink from '../auth-link/auth-link';
 import ProfileLink from '../profile-link/profile-link';
+import { getAuthorizationStatus, getUserEmail } from '../../store/user/selectors';
+
 
 function Header({authorizationStatus, userEmail}) {
   return (
@@ -37,8 +39,8 @@ Header.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  userEmail: state.userEmail,
+  authorizationStatus: getAuthorizationStatus(state),
+  userEmail: getUserEmail(state),
 });
 
 export {Header};

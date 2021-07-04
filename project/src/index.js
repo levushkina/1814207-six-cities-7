@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { ActionCreator } from './store/action';
+import { requiredAuthorization } from './store/action';
 import thunk from 'redux-thunk';
 import { createAPI } from './services/api';
 import { fetchOffersList, checkAuth } from './store/api-actions';
 import App from './components/app/app';
-import { reduser } from './store/reduser';
+import rootReducer from './store/root-reducer';
 import { AuthorizationStatus } from './const';
 import { redirect } from './store/middlewares/redirect';
 
@@ -16,11 +16,11 @@ import { redirect } from './store/middlewares/redirect';
 const api = createAPI(
   // error 'store' was used before it was defined
   // eslint-disable-next-line
-  () => store.dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.NO_AUTH)),
+  () => store.dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH)),
 );
 
 const store = createStore(
-  reduser,
+  rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
     applyMiddleware(redirect),

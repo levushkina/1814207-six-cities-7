@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router';
 import PropTypes from 'prop-types';
@@ -15,10 +15,15 @@ import offerProp from '../offer/offer.prop';
 import { PlacesListType, AuthorizationStatus } from '../../const';
 import { fetchOffersItem, fetchOffersNearby, fetchOffersReviews } from '../../store/api-actions';
 import { convertRatingToPercent } from '../../utils';
+import { getOfferItemIsLoaded, getOfferItem, getOffersNearbyIsLoaded, getOffersNearby } from '../../store/offers/selectors';
+import { getReviews, getReviewsIsLoaded } from '../../store/reviews/selectors';
+import { getAuthorizationStatus } from '../../store/user/selectors';
 
 
 function Offer({reviews, offerItem, getOfferData, offerItemIsLoaded, offersNearby, offersNearbyIsLoaded, reviewsIsLoaded, status}) {
   const { id } = useParams();
+  const [activeCard, setActiveCard] = useState(0);
+
   useEffect(() => {
     getOfferData(id);
   }, [id]);
@@ -118,14 +123,14 @@ function Offer({reviews, offerItem, getOfferData, offerItemIsLoaded, offersNearb
             </div>
           </div>
           <section className="property__map map">
-            {offersNearbyIsLoaded && <Map places={offersNearby}/>}
+            {offersNearbyIsLoaded && <Map places={offersNearby} activeCardId={activeCard}/>}
           </section>
         </section>
         <div className="container">
           {offersNearbyIsLoaded && (
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <PlacesList places={offersNearby} type={PlacesListType.NEAR}/>
+              <PlacesList places={offersNearby} type={PlacesListType.NEAR} setActiveCard={setActiveCard}/>
             </section>
           )}
         </div>
@@ -146,13 +151,13 @@ Offer.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offersNearby: state.offersNearby,
-  offerItem: state.offerItem,
-  offerItemIsLoaded: state.offerItemIsLoaded,
-  offersNearbyIsLoaded: state.offersNearbyIsLoaded,
-  reviewsIsLoaded: state.reviewsIsLoaded,
-  reviews: state.reviews,
-  status: state.authorizationStatus,
+  offersNearby: getOffersNearby(state),
+  offerItem: getOfferItem(state),
+  offerItemIsLoaded: getOfferItemIsLoaded(state),
+  offersNearbyIsLoaded: getOffersNearbyIsLoaded(state),
+  reviewsIsLoaded: getReviewsIsLoaded(state),
+  reviews: getReviews(state),
+  status: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

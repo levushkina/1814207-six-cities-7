@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import { logout } from '../../store/api-actions';
+import { getAuthorizationStatus } from '../../store/user/selectors';
 
 
 function AuthLink({status, onLogoutClick}) {
@@ -35,7 +36,7 @@ AuthLink.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  status: state.authorizationStatus,
+  status: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

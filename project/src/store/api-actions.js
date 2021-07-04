@@ -1,68 +1,68 @@
-import { ActionCreator } from './action';
+import { addReview, clearReviewError, showReviewPostError, changeReviewSendingStatus, loadOffers, loadOffersItem, redirectToRoute, loadOffersNearby, fetchOffersNearbyError, loadReviews, fetchReviewsError, requiredAuthorization, setUserEmail, loginError, closeSession } from './action';
 import { APIRoute, AuthorizationStatus, AppRoute, errorCode } from '../const';
 
 export const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
-    .then(({data}) => dispatch(ActionCreator.loadOffers(data)))
+    .then(({data}) => dispatch(loadOffers(data)))
 );
 
 export const fetchOffersItem = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.OFFERS}/${id}`)
-    .then(({data}) => dispatch(ActionCreator.loadOffersItem(data)))
+    .then(({data}) => dispatch(loadOffersItem(data)))
     .catch((error) => {
-      error.response.status === errorCode.NOT_FOUND && dispatch(ActionCreator.redirectToRoute(AppRoute.NOT_FOUND));
+      error.response.status === errorCode.NOT_FOUND && dispatch(redirectToRoute(AppRoute.NOT_FOUND));
     })
 );
 
 export const fetchOffersNearby = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.OFFERS}/${id}${APIRoute.NEARBY}`)
-    .then(({data}) => dispatch(ActionCreator.loadOffersNearby(data)))
+    .then(({data}) => dispatch(loadOffersNearby(data)))
     .catch(() => {
-      dispatch(ActionCreator.fetchOffersNearbyError());
+      dispatch(fetchOffersNearbyError());
     })
 );
 
 export const fetchOffersReviews = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.REVIEWS}/${id}`)
-    .then(({data}) => dispatch(ActionCreator.loadOffersReviews(data)))
+    .then(({data}) => dispatch(loadReviews(data)))
     .catch(() => {
-      dispatch(ActionCreator.fetchOffersReviewsError());
+      dispatch(fetchReviewsError());
     })
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
-      dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH));
-      dispatch(ActionCreator.setUserEmail(data.email));
+      dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
+      dispatch(setUserEmail(data.email));
     })
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => localStorage.setItem('token', data.token))
-    .then(() => dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH)))
-    .then(() => dispatch(ActionCreator.setUserEmail(email)))
-    .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.MAIN)))
+    .then(() => dispatch(requiredAuthorization(AuthorizationStatus.AUTH)))
+    .then(() => dispatch(setUserEmail(email)))
+    .then(() => dispatch(redirectToRoute(AppRoute.MAIN)))
     .catch(() => {
-      dispatch(ActionCreator.loginError());
+      dispatch(loginError());
     })
 );
 
 export const logout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
-    .then(() => dispatch(ActionCreator.logout()))
+    .then(() => dispatch(closeSession()))
 );
 
 export const postReview = (id, data) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.REVIEWS}/${id}`, data)
-    .then(({reviews}) => dispatch(ActionCreator.postReview(reviews)))
+    .then(({reviews}) => dispatch(addReview(reviews)))
     .then(() => {
-      dispatch(ActionCreator.changeReviewSendingStatus(false));
-      dispatch(ActionCreator.clearReviewError());
+      dispatch(changeReviewSendingStatus(false));
+      dispatch(clearReviewError());
     })
     .catch((error) => {
-      error.response && dispatch(ActionCreator.showReviewPostError(error.response.status));
+      error.response && dispatch(showReviewPostError(error.response.status));
     })
 );

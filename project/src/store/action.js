@@ -10,89 +10,103 @@ export const ActionType = {
   SET_USER_EMAIL: 'setUserEmail',
   REDIRECT_TO_ROUTE: 'redirectToRoute',
   LOAD_OFFERS_NEARBY: 'loadOffersNearby',
-  LOAD_OFFERS_REVIEWS: 'loadOffersReviews',
-  POST_REVIEW: 'postReview',
+  LOAD_REVIEWS: 'loadReviews',
+  ADD_REVIEW: 'addReview',
   CHANGE_REVIEW_SENDING_STATUS: 'changeReviewSendingStatus',
   SHOW_REVIEW_POST_ERROR: 'showReviewPostError',
   CLEAR_REVIEW_ERROR: 'clearReviewError',
   FETCH_OFFERS_NEARBY_ERROR: 'fetchOffersNearbyError',
-  FETCH_OFFERS_REVIEWS_ERROR: 'fetchOffersReviewsError',
+  FETCH_REVIEWS_ERROR: 'fetchReviewsError',
   LOGIN_ERROR: 'loginError',
 };
 
-export const ActionCreator = {
-  changeCity: (city) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: city,
-  }),
-  changeSortType: (sortType) => ({
-    type: ActionType.CHANGE_SORT_TYPE,
-    payload: sortType,
-  }),
-  loadOffers: (offers) => ({
-    type: ActionType.LOAD_OFFERS,
-    payload: offers,
-  }),
-  loadOffersItem: (offer) => ({
-    type: ActionType.LOAD_OFFERS_ITEM,
-    payload: offer,
-  }),
-  requiredAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
-  }),
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
-  setUserEmail: (email) => ({
-    type: ActionType.SET_USER_EMAIL,
-    payload: email,
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
-    payload: url,
-  }),
-  loadOffersNearby: (offersNearby) => ({
-    type: ActionType.LOAD_OFFERS_NEARBY,
-    payload: offersNearby,
-  }),
-  loadOffersReviews: (reviews) => ({
-    type: ActionType.LOAD_OFFERS_REVIEWS,
-    payload: reviews,
-  }),
-  postReview: (reviews) => ({
-    type: ActionType.POST_REVIEW,
-    payload: reviews,
-  }),
-  changeReviewSendingStatus: (isSending) => ({
-    type: ActionType.CHANGE_REVIEW_SENDING_STATUS,
-    payload: isSending,
-  }),
-  clearReviewError: () => ({
-    type: ActionType.CLEAR_REVIEW_ERROR,
-  }),
-  showReviewPostError: (error) => {
-    let errorText;
+export const changeCity = (city) => ({
+  type: ActionType.CHANGE_CITY,
+  payload: city,
+});
 
-    switch (error) {
-      case errorCode.UNAUTORIZED_ERROR_CODE:
-        errorText = ReviewsPostError.UNAUTORIZED;
-        break;
-      default:
-        errorText = ReviewsPostError.COMMON_ERROR;
-    }
-    return {
-      type: ActionType.SHOW_REVIEW_POST_ERROR,
-      payload: errorText,
-    };
-  },
-  fetchOffersNearbyError: () => ({
-    Type: ActionType.FETCH_OFFERS_NEARBY_ERROR,
-  }),
-  fetchOffersReviewsError: () => ({
-    Type: ActionType.FETCH_OFFERS_REVIEWS_ERROR,
-  }),
-  loginError: () => ({
-    Type: ActionType.LOGIN_ERROR,
-  }),
+export const changeSortType = (sortType) => ({
+  type: ActionType.CHANGE_SORT_TYPE,
+  payload: sortType,
+});
+
+export const loadOffers = (offers) => ({
+  type: ActionType.LOAD_OFFERS,
+  payload: offers,
+});
+
+export const loadOffersItem = (offer) => ({
+  type: ActionType.LOAD_OFFERS_ITEM,
+  payload: offer,
+});
+
+export const requiredAuthorization = (status) => ({
+  type: ActionType.REQUIRED_AUTHORIZATION,
+  payload: status,
+});
+
+export const closeSession = () => ({
+  type: ActionType.LOGOUT,
+});
+
+export const setUserEmail = (email) => ({
+  type: ActionType.SET_USER_EMAIL,
+  payload: email,
+});
+
+export const redirectToRoute = (url) => ({
+  type: ActionType.REDIRECT_TO_ROUTE,
+  payload: url,
+});
+
+export const loadOffersNearby = (offersNearby) => ({
+  type: ActionType.LOAD_OFFERS_NEARBY,
+  payload: offersNearby,
+});
+
+export const loadReviews = (reviews) => ({
+  type: ActionType.LOAD_REVIEWS,
+  payload: reviews,
+});
+
+export const addReview = (reviews) => ({
+  type: ActionType.ADD_REVIEW,
+  payload: reviews,
+});
+
+export const changeReviewSendingStatus = (isSending) => ({
+  type: ActionType.CHANGE_REVIEW_SENDING_STATUS,
+  payload: isSending,
+});
+
+export const clearReviewError = () => ({
+  type: ActionType.CLEAR_REVIEW_ERROR,
+});
+
+export const showReviewPostError = (error) => {
+  let errorText;
+
+  switch (error) {
+    case errorCode.UNAUTORIZED_ERROR_CODE:
+      errorText = ReviewsPostError.UNAUTORIZED;
+      break;
+    default:
+      errorText = ReviewsPostError.COMMON_ERROR;
+  }
+  return {
+    type: ActionType.SHOW_REVIEW_POST_ERROR,
+    payload: errorText,
+  };
 };
+
+export const fetchOffersNearbyError = () => ({
+  Type: ActionType.FETCH_OFFERS_NEARBY_ERROR,
+});
+
+export const fetchReviewsError = () => ({
+  Type: ActionType.FETCH_REVIEWS_ERROR,
+});
+
+export const loginError = () => ({
+  Type: ActionType.LOGIN_ERROR,
+});

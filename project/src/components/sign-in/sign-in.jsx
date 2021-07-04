@@ -5,6 +5,7 @@ import { login } from '../../store/api-actions';
 import PropTypes from 'prop-types';
 import Header from '../header/header';
 import { AuthorizationStatus, AppRoute } from '../../const';
+import { getAuthorizationStatus } from '../../store/user/selectors';
 
 
 function SignIn({onSubmit, status}) {
@@ -82,7 +83,7 @@ SignIn.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  status: state.authorizationStatus,
+  status: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

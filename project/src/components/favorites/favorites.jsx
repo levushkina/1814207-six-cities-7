@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import Header from '../header/header';
 import FavoriteLocation from '../favorite-location/favorite-location';
 import offerProp from '../offer/offer.prop';
-import {sortedPlacesByCity} from '../../utils';
+import { sortedPlacesByCity } from '../../utils';
+import { getOffers } from '../../store/offers/selectors';
 
 
 function Favorites({offers}) {
@@ -35,7 +36,7 @@ function Favorites({offers}) {
 }
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  offers: getOffers(state),
 });
 
 Favorites.propTypes = {

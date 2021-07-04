@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { ActionCreator } from '../../store/action';
+import { changeReviewSendingStatus } from '../../store/action';
 import PropTypes from 'prop-types';
 import Rating from '../rating/rating';
 import FormError from '../form-error/form-error';
 import { RATINGS, ReviewsTextLimits } from '../../const';
 import { postReview } from '../../store/api-actions';
+import { getReviewIsSending, getReviewError } from '../../store/reviews/selectors';
 
 
 function ReviewsForm({offerId, onSubmit, reviewIsSending, reviewError}) {
@@ -78,14 +79,14 @@ ReviewsForm.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  reviewIsSending: state.reviewIsSending,
-  reviewError: state.reviewError,
+  reviewIsSending: getReviewIsSending(state),
+  reviewError: getReviewError(state),
 });
 
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(id, data) {
-    dispatch(ActionCreator.changeReviewSendingStatus(true));
+    dispatch(changeReviewSendingStatus(true));
     dispatch(postReview(id, data));
   },
 });
