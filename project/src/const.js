@@ -5,6 +5,7 @@ export const AppRoute = {
   SIGN_IN: '/login',
   FAVORITES: '/favorites',
   OFFER: '/offer/:id?',
+  NOT_FOUND: '/404',
 };
 
 export const RATINGS = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
@@ -45,10 +46,27 @@ export const APIRoute = {
   OFFERS: '/hotels',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  REVIEWS: '/comments',
+  NEARBY: '/nearby',
 };
 
 export const AuthorizationStatus = {
   AUTH: 'AUTH',
   NO_AUTH: 'NO_AUTH',
   UNKNOWN: 'UNKNOWN',
+};
+
+export const ReviewsTextLimits = {
+  MAX: 300,
+  MIN: 50,
+};
+
+export const errorCode = {
+  UNAUTORIZED_ERROR_CODE: 401,
+  NOT_FOUND: 404,
+};
+
+export const ReviewsPostError = {
+  UNAUTORIZED: 'Login to post a comment',
+  COMMON_ERROR: 'Error. Please try later ',
 };
