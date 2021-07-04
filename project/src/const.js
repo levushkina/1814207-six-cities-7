@@ -40,3 +40,9 @@ export const sortOption = {
 };
 
 export const SORT_TYPES = ['DEFAULT', 'PRICE_LOW', 'PRICE_HIGH', 'RATING'];
+
+export const APIRoute = {
+  OFFERS: '/hotels',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { AppRoute } from '../../const';
 import PropTypes from 'prop-types';
 import Main from '../main/main';
@@ -7,15 +8,16 @@ import Offer from '../offer/offer';
 import Favorites from '../favorites/favorites';
 import SignIn from '../sign-in/sign-in';
 import NotFound from '../not-found/not-found';
-import offerProp from '../offer/offer.prop';
 import reviewsItemProp from '../reviews-item/reviews-item.prop';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 
-function App(props) {
-  const {places, reviews} = props;
-
-  const favoritesPlaces = places.filter((place) => place.isFavorite);
-  const getPlacesNear = () => places.slice(0, 3);
+function App({reviews, offersIsLoaded}) {
+  if (!offersIsLoaded) {
+    return (
+      <LoadingScreen/>
+    );
+  }
 
   return (
     <BrowserRouter>
@@ -27,10 +29,10 @@ function App(props) {
           <SignIn/>;
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <Favorites places={favoritesPlaces}/>;
+          <Favorites/>;
         </Route>
         <Route exact path={AppRoute.OFFER}>
-          <Offer reviews={reviews} nearPlaces={getPlacesNear()}/>;
+          <Offer reviews={reviews}/>;
         </Route>
         <Route>
           <NotFound/>;
@@ -40,9 +42,14 @@ function App(props) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  offersIsLoaded: state.offersIsLoaded,
+});
+
 App.propTypes = {
-  places: PropTypes.arrayOf(offerProp).isRequired,
   reviews: PropTypes.arrayOf(reviewsItemProp).isRequired,
+  offersIsLoaded: PropTypes.bool.isRequired,
 };
 
-export default App;
+export {App};
+export default connect(mapStateToProps, null)(App);

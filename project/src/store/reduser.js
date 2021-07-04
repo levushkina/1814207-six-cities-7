@@ -1,13 +1,12 @@
 import { ActionType } from './action';
-import offers from '../mocks/offers';
 import { DEFAULT_CITY, sortOption } from '../const';
 import { convertSnekeToCamelCase } from '../utils';
 
-const formatedOffers = convertSnekeToCamelCase(offers);
 
 const initialState = {
   city: DEFAULT_CITY,
-  offers: formatedOffers,
+  offers: [],
+  offersIsLoaded: false,
   sortType: sortOption.DEFAULT,
 };
 
@@ -22,6 +21,12 @@ const reduser = (state = initialState, action) => {
       return {
         ...state,
         sortType: action.payload,
+      };
+    case ActionType.LOAD_OFFERS:
+      return {
+        ...state,
+        offers: convertSnekeToCamelCase(action.payload),
+        offersIsLoaded: true,
       };
     default:
       return state;
