@@ -1,4 +1,5 @@
-import { ActionType } from '../action';
+import {createReducer} from '@reduxjs/toolkit';
+import { loadReviews, fetchReviewsError, addReview, changeReviewSendingStatus, showReviewPostError, clearReviewError } from '../action';
 import { convertSnekeToCamelCase } from '../../utils';
 
 
@@ -9,45 +10,28 @@ const initialState = {
   reviewError: '',
 };
 
-const reviews = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.LOAD_REVIEWS:
-      return {
-        ...state,
-        reviews: convertSnekeToCamelCase(action.payload),
-        reviewsIsLoaded: true,
-      };
-    case ActionType.FETCH_REVIEWS_ERROR:
-      return {
-        ...state,
-        reviews: [],
-        reviewsIsLoaded: false,
-      };
-    case ActionType.POST_REVIEW:
-      return {
-        ...state,
-        reviews: convertSnekeToCamelCase(action.payload),
-      };
-    case ActionType.CHANGE_REVIEW_SENDING_STATUS:
-      return {
-        ...state,
-        reviewIsSending: action.payload,
-      };
-    case ActionType.SHOW_REVIEW_POST_ERROR:
-      return {
-        ...state,
-        reviewError: action.payload,
-      };
-    case ActionType.CLEAR_REVIEW_ERROR:
-      return {
-        ...state,
-        reviewError: '',
-      };
-
-
-    default:
-      return state;
-  }
-};
+const reviews = createReducer(initialState, (builder) => {
+  builder
+    .addCase(loadReviews, (state, action) => {
+      state.reviews = convertSnekeToCamelCase(action.payload);
+      state.reviewsIsLoaded = true;
+    })
+    .addCase(fetchReviewsError, (state, action) => {
+      state.reviews = [];
+      state.reviewsIsLoaded = false;
+    })
+    .addCase(addReview, (state, action) => {
+      state.reviews = convertSnekeToCamelCase(action.payload);
+    })
+    .addCase(changeReviewSendingStatus, (state, action) => {
+      state.reviewIsSending = action.payload;
+    })
+    .addCase(showReviewPostError, (state, action) => {
+      state.reviewError = action.payload;
+    })
+    .addCase(clearReviewError, (state, action) => {
+      state.reviewError = '';
+    });
+});
 
 export { reviews };

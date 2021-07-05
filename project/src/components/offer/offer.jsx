@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
-import PropTypes from 'prop-types';
 import Header from '../header/header';
 import ReviewsForm from '../reviews-form/reviews-form';
 import ReviewsList from '../reviews-list/reviews-list';
@@ -10,8 +9,6 @@ import Map from '../map/map';
 import LoadingScreen from '../loading-screen/loading-screen';
 import GalleryItem from '../gallery-item/gallery-item';
 import PropertyItem from '../property-item/property-item';
-import reviewsItemProp from '../reviews-item/reviews-item.prop';
-import offerProp from '../offer/offer.prop';
 import { PlacesListType, AuthorizationStatus } from '../../const';
 import { fetchOffersItem, fetchOffersNearby, fetchOffersReviews } from '../../store/api-actions';
 import { convertRatingToPercent } from '../../utils';
@@ -20,7 +17,21 @@ import { getReviews, getReviewsIsLoaded } from '../../store/reviews/selectors';
 import { getAuthorizationStatus } from '../../store/user/selectors';
 
 
-function Offer({reviews, offerItem, getOfferData, offerItemIsLoaded, offersNearby, offersNearbyIsLoaded, reviewsIsLoaded, status}) {
+function Offer() {
+  const offersNearby = useSelector(getOffersNearby);
+  const offerItem = useSelector(getOfferItem);
+  const offerItemIsLoaded = useSelector(getOfferItemIsLoaded);
+  const offersNearbyIsLoaded = useSelector(getOffersNearbyIsLoaded);
+  const reviews = useSelector(getReviews);
+  const status = useSelector(getAuthorizationStatus);
+  const reviewsIsLoaded = useSelector(getReviewsIsLoaded);
+  const dispatch = useDispatch();
+  const getOfferData = (offerId) => {
+    dispatch(fetchOffersItem(offerId));
+    dispatch(fetchOffersNearby(offerId));
+    dispatch(fetchOffersReviews(offerId));
+  };
+
   const { id } = useParams();
   const [activeCard, setActiveCard] = useState(0);
 
@@ -139,34 +150,4 @@ function Offer({reviews, offerItem, getOfferData, offerItemIsLoaded, offersNearb
   );
 }
 
-Offer.propTypes = {
-  reviews: PropTypes.arrayOf(reviewsItemProp).isRequired,
-  offersNearby: PropTypes.arrayOf(offerProp).isRequired,
-  offerItem: offerProp,
-  getOfferData: PropTypes.func.isRequired,
-  offerItemIsLoaded: PropTypes.bool.isRequired,
-  offersNearbyIsLoaded: PropTypes.bool.isRequired,
-  reviewsIsLoaded: PropTypes.bool.isRequired,
-  status: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  offersNearby: getOffersNearby(state),
-  offerItem: getOfferItem(state),
-  offerItemIsLoaded: getOfferItemIsLoaded(state),
-  offersNearbyIsLoaded: getOffersNearbyIsLoaded(state),
-  reviewsIsLoaded: getReviewsIsLoaded(state),
-  reviews: getReviews(state),
-  status: getAuthorizationStatus(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  getOfferData(id) {
-    dispatch(fetchOffersItem(id));
-    dispatch(fetchOffersNearby(id));
-    dispatch(fetchOffersReviews(id));
-  },
-});
-
-export {Offer};
-export default connect(mapStateToProps, mapDispatchToProps)(Offer);
+export default Offer;

@@ -1,4 +1,5 @@
-import { ActionType } from '../action';
+import {createReducer} from '@reduxjs/toolkit';
+import { changeCity, loadOffers, changeSortType, loadOffersItem, loadOffersNearby, fetchOffersNearbyError } from '../action';
 import { DEFAULT_CITY, sortOption } from '../../const';
 import { convertSnekeToCamelCase } from '../../utils';
 
@@ -14,45 +15,30 @@ const initialState = {
   offersNearbyIsLoaded: false,
 };
 
-const offers = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.CHANGE_CITY:
-      return {
-        ...state,
-        city: action.payload,
-      };
-    case ActionType.CHANGE_SORT_TYPE:
-      return {
-        ...state,
-        sortType: action.payload,
-      };
-    case ActionType.LOAD_OFFERS:
-      return {
-        ...state,
-        offers: convertSnekeToCamelCase(action.payload),
-        offersIsLoaded: true,
-      };
-    case ActionType.LOAD_OFFERS_ITEM:
-      return {
-        ...state,
-        offerItem: convertSnekeToCamelCase(action.payload),
-        offerItemIsLoaded: true,
-      };
-    case ActionType.LOAD_OFFERS_NEARBY:
-      return {
-        ...state,
-        offersNearby: convertSnekeToCamelCase(action.payload),
-        offersNearbyIsLoaded: true,
-      };
-    case ActionType.FETCH_OFFERS_NEARBY_ERROR:
-      return {
-        ...state,
-        offersNearby: [],
-        offersNearbyIsLoaded: false,
-      };
-    default:
-      return state;
-  }
-};
+const offers = createReducer(initialState, (builder) => {
+  builder
+    .addCase(changeCity, (state, action) => {
+      state.city = action.payload;
+    })
+    .addCase(changeSortType, (state, action) => {
+      state.sortType = action.payload;
+    })
+    .addCase(loadOffers, (state, action) => {
+      state.offers = convertSnekeToCamelCase(action.payload);
+      state.offersIsLoaded = true;
+    })
+    .addCase(loadOffersItem, (state, action) => {
+      state.offerItem = convertSnekeToCamelCase(action.payload);
+      state.offerItemIsLoaded = true;
+    })
+    .addCase(loadOffersNearby, (state, action) => {
+      state.offersNearby = convertSnekeToCamelCase(action.payload);
+      state.offersNearbyIsLoaded = true;
+    })
+    .addCase(fetchOffersNearbyError, (state, action) => {
+      state.offersNearby = [];
+      state.offersNearbyIsLoaded = false;
+    });
+});
 
 export { offers };

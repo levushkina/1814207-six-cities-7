@@ -1,16 +1,22 @@
 import React, { useRef } from 'react';
-import {Redirect} from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../store/api-actions';
-import PropTypes from 'prop-types';
 import Header from '../header/header';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import { getAuthorizationStatus } from '../../store/user/selectors';
 
 
-function SignIn({onSubmit, status}) {
+function SignIn() {
+  const status = useSelector(getAuthorizationStatus);
+  const dispatch = useDispatch();
+
   const loginRef = useRef();
   const passwordRef = useRef();
+
+  const onSubmit = (authData) => {
+    dispatch(login(authData));
+  };
 
   if (status === AuthorizationStatus.AUTH) {
     return (
@@ -29,7 +35,6 @@ function SignIn({onSubmit, status}) {
   return (
     <div className="page page--gray page--login">
       <Header/>
-
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
@@ -77,20 +82,4 @@ function SignIn({onSubmit, status}) {
   );
 }
 
-SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  status: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  status: getAuthorizationStatus(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    dispatch(login(authData));
-  },
-});
-
-export {SignIn};
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default SignIn;

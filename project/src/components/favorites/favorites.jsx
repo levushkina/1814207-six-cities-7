@@ -1,14 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import Header from '../header/header';
 import FavoriteLocation from '../favorite-location/favorite-location';
-import offerProp from '../offer/offer.prop';
 import { sortedPlacesByCity } from '../../utils';
 import { getOffers } from '../../store/offers/selectors';
 
 
-function Favorites({offers}) {
+function Favorites() {
+  const offers = useSelector(getOffers);
   const favoritesPlaces = offers.filter((place) => place.isFavorite);
   const placesGroupByCity = sortedPlacesByCity(favoritesPlaces);
   const cities = Object.keys(placesGroupByCity);
@@ -35,13 +34,4 @@ function Favorites({offers}) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  offers: getOffers(state),
-});
-
-Favorites.propTypes = {
-  offers: PropTypes.arrayOf(offerProp).isRequired,
-};
-
-export {Favorites};
-export default connect(mapStateToProps, null)(Favorites);
+export default Favorites;

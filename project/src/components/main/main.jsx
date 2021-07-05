@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { changeCity, changeSortType } from '../../store/action';
-import PropTypes from 'prop-types';
 import PlacesList from '../places-list/places-list';
 import Header from '../header/header';
-import offerProp from '../offer/offer.prop';
 import Map from '../map/map';
 import CitiestList from '../cities-list/cities-list';
 import SortingForm from '../sorting-form/sorting-form';
@@ -13,7 +11,18 @@ import { sortOffers, filterOfferByCity } from '../../utils';
 import { getOffers, getSortType, getCity } from '../../store/offers/selectors';
 
 
-function Main({offers, city, onCityChange, onSortTypeChange, sortType}) {
+function Main() {
+  const city = useSelector(getCity);
+  const offers = useSelector(getOffers);
+  const sortType = useSelector(getSortType);
+  const dispatch = useDispatch();
+  const onCityChange = (cityName) => {
+    dispatch(changeCity(cityName));
+  };
+  const onSortTypeChange = (type) => {
+    dispatch(changeSortType(type));
+  };
+
   const sortedOffers = sortOffers(sortType, filterOfferByCity(city, offers));
   const [activeCard, setActiveCard] = useState(0);
 
@@ -45,28 +54,4 @@ function Main({offers, city, onCityChange, onSortTypeChange, sortType}) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  city: getCity(state),
-  offers: getOffers(state),
-  sortType: getSortType(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onCityChange(city) {
-    dispatch(changeCity(city));
-  },
-  onSortTypeChange(sortType) {
-    dispatch(changeSortType(sortType));
-  },
-});
-
-Main.propTypes = {
-  offers: PropTypes.arrayOf(offerProp).isRequired,
-  city: PropTypes.string.isRequired,
-  onCityChange: PropTypes.func.isRequired,
-  onSortTypeChange: PropTypes.func.isRequired,
-  sortType: PropTypes.string.isRequired,
-};
-
-export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

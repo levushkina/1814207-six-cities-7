@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { changeReviewSendingStatus } from '../../store/action';
 import PropTypes from 'prop-types';
 import Rating from '../rating/rating';
@@ -9,7 +9,15 @@ import { postReview } from '../../store/api-actions';
 import { getReviewIsSending, getReviewError } from '../../store/reviews/selectors';
 
 
-function ReviewsForm({offerId, onSubmit, reviewIsSending, reviewError}) {
+function ReviewsForm({offerId}) {
+  const reviewIsSending = useSelector(getReviewIsSending);
+  const reviewError = useSelector(getReviewError);
+  const dispatch = useDispatch();
+  const onSubmit = (id, data) => {
+    dispatch(changeReviewSendingStatus(true));
+    dispatch(postReview(id, data));
+  };
+
   const [reviewRating, setReviewRating] = useState(0);
   const [reviewText, setReviewText] = useState('');
   const [enableSubmit, setEnableSubmit] = useState(false);
@@ -73,23 +81,6 @@ function ReviewsForm({offerId, onSubmit, reviewIsSending, reviewError}) {
 
 ReviewsForm.propTypes = {
   offerId: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  reviewIsSending: PropTypes.bool.isRequired,
-  reviewError: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
-  reviewIsSending: getReviewIsSending(state),
-  reviewError: getReviewError(state),
-});
-
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(id, data) {
-    dispatch(changeReviewSendingStatus(true));
-    dispatch(postReview(id, data));
-  },
-});
-
-export {ReviewsForm};
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewsForm);
+export default ReviewsForm;

@@ -1,3 +1,4 @@
+import { createAction } from '@reduxjs/toolkit';
 import { errorCode, ReviewsPostError } from '../const';
 
 export const ActionType = {
@@ -20,70 +21,55 @@ export const ActionType = {
   LOGIN_ERROR: 'loginError',
 };
 
-export const changeCity = (city) => ({
-  type: ActionType.CHANGE_CITY,
+export const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({
   payload: city,
-});
+}));
 
-export const changeSortType = (sortType) => ({
-  type: ActionType.CHANGE_SORT_TYPE,
+export const changeSortType = createAction(ActionType.CHANGE_SORT_TYPE, (sortType) => ({
   payload: sortType,
-});
+}));
 
-export const loadOffers = (offers) => ({
-  type: ActionType.LOAD_OFFERS,
+export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({
   payload: offers,
-});
+}));
 
-export const loadOffersItem = (offer) => ({
-  type: ActionType.LOAD_OFFERS_ITEM,
+export const loadOffersItem = createAction(ActionType.LOAD_OFFERS_ITEM, (offer) => ({
   payload: offer,
-});
+}));
 
-export const requiredAuthorization = (status) => ({
-  type: ActionType.REQUIRED_AUTHORIZATION,
+export const requiredAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => ({
   payload: status,
-});
+}));
 
-export const closeSession = () => ({
-  type: ActionType.LOGOUT,
-});
+export const closeSession = createAction(ActionType.LOGOUT);
 
-export const setUserEmail = (email) => ({
-  type: ActionType.SET_USER_EMAIL,
+export const setUserEmail = createAction(ActionType.SET_USER_EMAIL, (email) => ({
   payload: email,
-});
+}));
 
-export const redirectToRoute = (url) => ({
-  type: ActionType.REDIRECT_TO_ROUTE,
+export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({
   payload: url,
-});
+}));
 
-export const loadOffersNearby = (offersNearby) => ({
-  type: ActionType.LOAD_OFFERS_NEARBY,
+export const loadOffersNearby = createAction(ActionType.LOAD_OFFERS_NEARBY, (offersNearby) => ({
   payload: offersNearby,
-});
+}));
 
-export const loadReviews = (reviews) => ({
-  type: ActionType.LOAD_REVIEWS,
+export const loadReviews = createAction(ActionType.LOAD_REVIEWS, (reviews) => ({
   payload: reviews,
-});
+}));
 
-export const addReview = (reviews) => ({
-  type: ActionType.ADD_REVIEW,
+export const addReview = createAction(ActionType.ADD_REVIEW, (reviews) => ({
   payload: reviews,
-});
+}));
 
-export const changeReviewSendingStatus = (isSending) => ({
-  type: ActionType.CHANGE_REVIEW_SENDING_STATUS,
+export const changeReviewSendingStatus = createAction(ActionType.CHANGE_REVIEW_SENDING_STATUS, (isSending) => ({
   payload: isSending,
-});
+}));
 
-export const clearReviewError = () => ({
-  type: ActionType.CLEAR_REVIEW_ERROR,
-});
+export const clearReviewError = createAction(ActionType.CLEAR_REVIEW_ERROR);
 
-export const showReviewPostError = (error) => {
+export const showReviewPostError = createAction(ActionType.SHOW_REVIEW_POST_ERROR, (error) => {
   let errorText;
 
   switch (error) {
@@ -97,16 +83,10 @@ export const showReviewPostError = (error) => {
     type: ActionType.SHOW_REVIEW_POST_ERROR,
     payload: errorText,
   };
-};
-
-export const fetchOffersNearbyError = () => ({
-  Type: ActionType.FETCH_OFFERS_NEARBY_ERROR,
 });
 
-export const fetchReviewsError = () => ({
-  Type: ActionType.FETCH_REVIEWS_ERROR,
-});
+export const fetchOffersNearbyError = createAction(ActionType.FETCH_OFFERS_NEARBY_ERROR);
 
-export const loginError = () => ({
-  Type: ActionType.LOGIN_ERROR,
-});
+export const fetchReviewsError = createAction(ActionType.FETCH_REVIEWS_ERROR);
+
+export const loginError = createAction(ActionType.LOGIN_ERROR);

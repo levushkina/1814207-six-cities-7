@@ -1,13 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import { logout } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user/selectors';
 
 
-function AuthLink({status, onLogoutClick}) {
+function AuthLink() {
+  const status = useSelector(getAuthorizationStatus);
+  const dispatch = useDispatch();
+  const onLogoutClick = () => {
+    dispatch(logout());
+  };
+
   if (status === AuthorizationStatus.AUTH) {
     return (
       <a
@@ -30,20 +35,4 @@ function AuthLink({status, onLogoutClick}) {
   );
 }
 
-AuthLink.propTypes = {
-  status: PropTypes.string.isRequired,
-  onLogoutClick: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  status: getAuthorizationStatus(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLogoutClick() {
-    dispatch(logout());
-  },
-});
-
-export {AuthLink};
-export default connect(mapStateToProps, mapDispatchToProps)(AuthLink);
+export default AuthLink;
