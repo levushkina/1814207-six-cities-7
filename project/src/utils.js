@@ -1,4 +1,4 @@
-import { MAX_RATING, sortOption } from './const';
+import { MAX_RATING, sortOption, AuthorizationStatus } from './const';
 
 
 export const convertRatingToPercent = (placeRating) => `${placeRating / MAX_RATING * 100}%`;
@@ -38,3 +38,6 @@ export const sortOffers = (type, offers) => {
     default: return offers.sort((a, b) => a.id - b.id);
   }
 };
+
+export const isCheckedAuth = (authorizationStatus) =>
+  authorizationStatus === AuthorizationStatus.UNKNOWN;
