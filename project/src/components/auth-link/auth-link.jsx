@@ -9,7 +9,8 @@ import { getAuthorizationStatus } from '../../store/user/selectors';
 function AuthLink() {
   const status = useSelector(getAuthorizationStatus);
   const dispatch = useDispatch();
-  const onLogoutClick = () => {
+  const handleLogoutClick = (evt) => {
+    evt.preventDefault();
     dispatch(logout());
   };
 
@@ -18,10 +19,7 @@ function AuthLink() {
       <a
         className="header__nav-link"
         href="#"
-        onClick={(evt) => {
-          evt.preventDefault();
-          onLogoutClick();
-        }}
+        onClick={handleLogoutClick}
       >
         <span className="header__signout">Sign out</span>
       </a>

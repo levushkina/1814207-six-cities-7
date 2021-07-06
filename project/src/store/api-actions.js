@@ -1,14 +1,15 @@
 import { addReview, clearReviewError, showReviewPostError, changeReviewSendingStatus, loadOffers, loadOffersItem, redirectToRoute, loadOffersNearby, fetchOffersNearbyError, loadReviews, fetchReviewsError, requiredAuthorization, setUserEmail, loginError, closeSession } from './action';
 import { APIRoute, AuthorizationStatus, AppRoute, errorCode } from '../const';
+import { convertSnekeToCamelCase } from '../utils';
 
 export const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
-    .then(({data}) => dispatch(loadOffers(data)))
+    .then(({data}) => dispatch(loadOffers(convertSnekeToCamelCase(data))))
 );
 
 export const fetchOffersItem = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.OFFERS}/${id}`)
-    .then(({data}) => dispatch(loadOffersItem(data)))
+    .then(({data}) => dispatch(loadOffersItem(convertSnekeToCamelCase(data))))
     .catch((error) => {
       error.response.status === errorCode.NOT_FOUND && dispatch(redirectToRoute(AppRoute.NOT_FOUND));
     })
@@ -16,7 +17,7 @@ export const fetchOffersItem = (id) => (dispatch, _getState, api) => (
 
 export const fetchOffersNearby = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.OFFERS}/${id}${APIRoute.NEARBY}`)
-    .then(({data}) => dispatch(loadOffersNearby(data)))
+    .then(({data}) => dispatch(loadOffersNearby(convertSnekeToCamelCase(data))))
     .catch(() => {
       dispatch(fetchOffersNearbyError());
     })
@@ -24,7 +25,7 @@ export const fetchOffersNearby = (id) => (dispatch, _getState, api) => (
 
 export const fetchOffersReviews = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.REVIEWS}/${id}`)
-    .then(({data}) => dispatch(loadReviews(data)))
+    .then(({data}) => dispatch(loadReviews(convertSnekeToCamelCase(data))))
     .catch(() => {
       dispatch(fetchReviewsError());
     })
@@ -57,7 +58,7 @@ export const logout = () => (dispatch, _getState, api) => (
 
 export const postReview = (id, data) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.REVIEWS}/${id}`, data)
-    .then(({reviews}) => dispatch(addReview(reviews)))
+    .then(({reviews}) => dispatch(addReview(convertSnekeToCamelCase(reviews))))
     .then(() => {
       dispatch(changeReviewSendingStatus(false));
       dispatch(clearReviewError());

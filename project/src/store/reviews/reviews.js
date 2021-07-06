@@ -1,6 +1,5 @@
-import {createReducer} from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 import { loadReviews, fetchReviewsError, addReview, changeReviewSendingStatus, showReviewPostError, clearReviewError } from '../action';
-import { convertSnekeToCamelCase } from '../../utils';
 
 
 const initialState = {
@@ -13,7 +12,7 @@ const initialState = {
 const reviews = createReducer(initialState, (builder) => {
   builder
     .addCase(loadReviews, (state, action) => {
-      state.reviews = convertSnekeToCamelCase(action.payload);
+      state.reviews = action.payload;
       state.reviewsIsLoaded = true;
     })
     .addCase(fetchReviewsError, (state, action) => {
@@ -21,7 +20,7 @@ const reviews = createReducer(initialState, (builder) => {
       state.reviewsIsLoaded = false;
     })
     .addCase(addReview, (state, action) => {
-      state.reviews = convertSnekeToCamelCase(action.payload);
+      state.reviews = action.payload;
     })
     .addCase(changeReviewSendingStatus, (state, action) => {
       state.reviewIsSending = action.payload;

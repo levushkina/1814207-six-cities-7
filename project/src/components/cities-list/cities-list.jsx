@@ -25,4 +25,5 @@ CitiestList.propTypes = {
   onCityChange: PropTypes.func.isRequired,
 };
 
-export default CitiestList;
+export { CitiestList };
+export default React.memo(CitiestList);

@@ -2,8 +2,6 @@ import { createAction } from '@reduxjs/toolkit';
 import { errorCode, ReviewsPostError } from '../const';
 
 export const ActionType = {
-  CHANGE_CITY: 'chengeSity',
-  CHANGE_SORT_TYPE: 'changeSortType',
   LOAD_OFFERS: 'loadOffers',
   LOAD_OFFERS_ITEM: 'loadOffersItem',
   REQUIRED_AUTHORIZATION: 'requiredAuthorization',
@@ -20,14 +18,6 @@ export const ActionType = {
   FETCH_REVIEWS_ERROR: 'fetchReviewsError',
   LOGIN_ERROR: 'loginError',
 };
-
-export const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({
-  payload: city,
-}));
-
-export const changeSortType = createAction(ActionType.CHANGE_SORT_TYPE, (sortType) => ({
-  payload: sortType,
-}));
 
 export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({
   payload: offers,

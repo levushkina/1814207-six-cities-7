@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeReviewSendingStatus } from '../../store/action';
 import PropTypes from 'prop-types';
@@ -26,10 +26,10 @@ function ReviewsForm({offerId}) {
     reviewRating && ReviewsTextLimits.MAX >= reviewText.length && reviewText.length >= ReviewsTextLimits.MIN
   );
 
-  const handleRatingChange = (event) => {
+  const onRatingChange = useCallback((event) => {
     setReviewRating(Number(event.target.value));
     setEnableSubmit(formValidate());
-  };
+  }, [reviewRating, reviewIsSending]);
 
   const handleReviewChange = (event) => {
     setReviewText(event.target.value);
@@ -43,20 +43,22 @@ function ReviewsForm({offerId}) {
     setReviewText('');
   };
 
+  const ratingsItems = RATINGS.map((rating, i) => (
+    <Rating
+      key={rating}
+      name={rating}
+      value={RATINGS.length - i}
+      reviewRating={reviewRating}
+      onRatingChange={onRatingChange}
+      disabled={reviewIsSending}
+    />
+  ));
+
   return (
     <form onSubmit={handleFormSubmit} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {RATINGS.map((rating, i) => (
-          <Rating
-            key={rating}
-            name={rating}
-            value={RATINGS.length - i}
-            reviewRating={reviewRating}
-            handleRatingChange={handleRatingChange}
-            disabled={reviewIsSending}
-          />
-        ))}
+        {ratingsItems}
       </div>
       <textarea
         onChange={handleReviewChange}
@@ -68,7 +70,7 @@ function ReviewsForm({offerId}) {
         maxLength="300"
         disabled={reviewIsSending}
       />
-      <FormError errorText={reviewError}/>
+      {reviewError && <FormError errorText={reviewError}/>}
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.

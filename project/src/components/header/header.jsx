@@ -34,4 +34,5 @@ function Header() {
   );
 }
 
-export default Header;
+export { Header };
+export default React.memo(Header);
