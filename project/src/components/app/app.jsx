@@ -8,16 +8,17 @@ import Offer from '../offer/offer';
 import Favorites from '../favorites/favorites';
 import SignIn from '../sign-in/sign-in';
 import NotFound from '../not-found/not-found';
-import reviewsItemProp from '../reviews-item/reviews-item.prop';
 import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 
 
-function App({reviews, offersIsLoaded, authorizationStatus}) {
+function App({offersIsLoaded, authorizationStatus}) {
   if (!offersIsLoaded) {
     return (
-      <LoadingScreen/>
+      <BrowserRouter history={browserHistory}>
+        <LoadingScreen/>
+      </BrowserRouter>
     );
   }
 
@@ -37,7 +38,7 @@ function App({reviews, offersIsLoaded, authorizationStatus}) {
         >
         </PrivateRoute>
         <Route exact path={AppRoute.OFFER}>
-          <Offer reviews={reviews}/>;
+          <Offer/>;
         </Route>
         <Route>
           <NotFound/>;
@@ -48,7 +49,6 @@ function App({reviews, offersIsLoaded, authorizationStatus}) {
 }
 
 App.propTypes = {
-  reviews: PropTypes.arrayOf(reviewsItemProp).isRequired,
   offersIsLoaded: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };
