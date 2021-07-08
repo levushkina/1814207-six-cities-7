@@ -1,16 +1,48 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import LoadingScreen from '../loading-screen/loading-screen';
 import Header from '../header/header';
+import Footer from '../footer/footer';
+import FavoritesEmpty from '../favorites-empty/favorites-empty';
 import FavoriteLocation from '../favorite-location/favorite-location';
-import { sortedPlacesByCity } from '../../utils';
-import { getOffers } from '../../store/offers/selectors';
+import { sortedPlacesByCity, getOffersByIds } from '../../utils';
+import { AuthorizationStatus, AppRoute } from '../../const';
+import { getFavorites, getFavoritesIsLoaded, getOffers } from '../../store/offers/selectors';
+import { getAuthorizationStatus } from '../../store/user/selectors';
+import { fetchFavorites } from '../../store/api-actions';
 
 
 function Favorites() {
+  const status = useSelector(getAuthorizationStatus);
+  const dispatch = useDispatch();
   const offers = useSelector(getOffers);
-  const favoritesPlaces = offers.filter((place) => place.isFavorite);
-  const placesGroupByCity = sortedPlacesByCity(favoritesPlaces);
+  const favoritesItemIsLoaded = useSelector(getFavoritesIsLoaded);
+  const favoritesPlacesIds = useSelector(getFavorites);
+  const placesGroupByCity = sortedPlacesByCity(getOffersByIds(offers, favoritesPlacesIds));
   const cities = Object.keys(placesGroupByCity);
+
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [offers]);
+
+  if (status !== AuthorizationStatus.AUTH) {
+    return (
+      <Redirect to={AppRoute.SIGN_IN} />
+    );
+  }
+
+  if (!favoritesItemIsLoaded) {
+    return (
+      <LoadingScreen/>
+    );
+  }
+
+  if (cities.length < 1) {
+    return (
+      <FavoritesEmpty />
+    );
+  }
 
   return (
     <div className="page">
@@ -25,11 +57,7 @@ function Favorites() {
           </section>
         </div>
       </main>
-      <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-        </a>
-      </footer>
+      <Footer/>
     </div>
   );
 }

@@ -48,6 +48,7 @@ export const APIRoute = {
   LOGOUT: '/logout',
   REVIEWS: '/comments',
   NEARBY: '/nearby',
+  FAVORITE: '/favorite',
 };
 
 export const AuthorizationStatus = {
@@ -69,4 +70,9 @@ export const errorCode = {
 export const ReviewsPostError = {
   UNAUTORIZED: 'Login to post a comment',
   COMMON_ERROR: 'Error. Please try later ',
+};
+
+export const BookmarkClass = {
+  OFFER_CARD: 'property',
+  OFFER_LIST: 'place-card',
 };

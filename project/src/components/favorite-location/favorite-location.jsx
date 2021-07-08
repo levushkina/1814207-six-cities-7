@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import FavoriteItem from '../favorite-item/favorite-item';
 import offerProp from '../offer/offer.prop';
 
-function FavoriteLocation(props) {
-  const {city, places} = props;
-
+function FavoriteLocation({city, places}) {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
@@ -16,7 +14,7 @@ function FavoriteLocation(props) {
         </div>
       </div>
       <div className="favorites__places">
-        {places.map((place) => <FavoriteItem key={place.title} place={place} />)}
+        {places.map((place) => <FavoriteItem key={`${place.title}${place.id}`} place={place} />)}
       </div>
     </li>
   );

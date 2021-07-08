@@ -1,18 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { AppRoute } from '../../const';
+
 
 function ProfileLink({userEmail}) {
   return (
-    <a className="header__nav-link header__nav-link--profile" href="#">
+    <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile">
       <div className="header__avatar-wrapper user__avatar-wrapper">
       </div>
       <span className="header__user-name user__name">{userEmail}</span>
-    </a>
+    </Link>
   );
 }
-
-export default ProfileLink;
 
 ProfileLink.propTypes = {
   userEmail: PropTypes.string.isRequired,
 };
+
+export default ProfileLink;

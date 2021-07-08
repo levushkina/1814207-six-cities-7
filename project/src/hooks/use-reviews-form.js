@@ -2,9 +2,10 @@ import { useState, useCallback } from 'react';
 import { DEFAULT_CITY, sortOption } from '../const';
 import { sortOffers, filterOfferByCity } from '../utils';
 
-function useSordedOffers(offers) {
+function useReviewsForm(offers) {
   const [currentCity, setCurrentCity] = useState(DEFAULT_CITY);
   const [sortType, setSortType] = useState(sortOption.DEFAULT);
+
   const sortedOffers = sortOffers(sortType, filterOfferByCity(currentCity, offers));
 
   const handleCurrentCityChange = useCallback((cityName) => {
@@ -18,4 +19,4 @@ function useSordedOffers(offers) {
   return [currentCity, handleCurrentCityChange, sortType, handleSortTypeChange, sortedOffers];
 }
 
-export default useSordedOffers;
+export default useReviewsForm;

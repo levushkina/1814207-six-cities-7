@@ -13,11 +13,6 @@ function ReviewsForm({offerId}) {
   const reviewIsSending = useSelector(getReviewIsSending);
   const reviewError = useSelector(getReviewError);
   const dispatch = useDispatch();
-  const onSubmit = (id, data) => {
-    dispatch(changeReviewSendingStatus(true));
-    dispatch(postReview(id, data));
-  };
-
   const [reviewRating, setReviewRating] = useState(0);
   const [reviewText, setReviewText] = useState('');
   const [enableSubmit, setEnableSubmit] = useState(false);
@@ -38,7 +33,8 @@ function ReviewsForm({offerId}) {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    onSubmit(offerId, {comment: reviewText, rating: reviewRating});
+    dispatch(changeReviewSendingStatus(true));
+    dispatch(postReview(offerId, {comment: reviewText, rating: reviewRating}));
     setReviewRating(0);
     setReviewText('');
   };
