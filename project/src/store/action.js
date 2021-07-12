@@ -5,14 +5,12 @@ export const ActionType = {
   LOAD_OFFERS: 'loadOffers',
   REQUIRED_AUTHORIZATION: 'requiredAuthorization',
   LOGOUT: 'logout',
-  SET_USER_EMAIL: 'setUserEmail',
   REDIRECT_TO_ROUTE: 'redirectToRoute',
   LOAD_OFFERS_NEARBY: 'loadOffersNearby',
   LOAD_REVIEWS: 'loadReviews',
   ADD_REVIEW: 'addReview',
   CHANGE_REVIEW_SENDING_STATUS: 'changeReviewSendingStatus',
   SHOW_REVIEW_POST_ERROR: 'showReviewPostError',
-  CLEAR_REVIEW_ERROR: 'clearReviewError',
   FETCH_OFFERS_NEARBY_ERROR: 'fetchOffersNearbyError',
   FETCH_REVIEWS_ERROR: 'fetchReviewsError',
   LOGIN_ERROR: 'loginError',
@@ -29,10 +27,6 @@ export const requiredAuthorization = createAction(ActionType.REQUIRED_AUTHORIZAT
 }));
 
 export const closeSession = createAction(ActionType.LOGOUT);
-
-export const setUserEmail = createAction(ActionType.SET_USER_EMAIL, (email) => ({
-  payload: email,
-}));
 
 export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({
   payload: url,
@@ -53,8 +47,6 @@ export const addReview = createAction(ActionType.ADD_REVIEW, (reviews) => ({
 export const changeReviewSendingStatus = createAction(ActionType.CHANGE_REVIEW_SENDING_STATUS, (isSending) => ({
   payload: isSending,
 }));
-
-export const clearReviewError = createAction(ActionType.CLEAR_REVIEW_ERROR);
 
 export const showReviewPostError = createAction(ActionType.SHOW_REVIEW_POST_ERROR, (error) => {
   let errorText;

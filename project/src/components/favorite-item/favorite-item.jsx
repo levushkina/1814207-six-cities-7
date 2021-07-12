@@ -35,7 +35,9 @@ function FavoriteItem(props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{place.title}</a>
+          <Link to={`/offer/${place.id}`}>
+            {place.title}
+          </Link>
         </h2>
         <p className="place-card__type">{place.type}</p>
       </div>

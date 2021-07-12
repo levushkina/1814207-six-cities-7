@@ -7,8 +7,7 @@ import { PlacesListType, PlaceCardClassName, BookmarkClass } from '../../const';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 
 
-function PlaceCard(props) {
-  const {place, onPlaceMouseOver, type = PlacesListType.MAIN} = props;
+function PlaceCard({place, onPlaceMouseOver, type = PlacesListType.MAIN}) {
   const handlePlaceMouseOver = () => onPlaceMouseOver(place.id);
 
   return (

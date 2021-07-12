@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import City from '../city/city';
 
+
 function CitiestList({currentCity, cities, onCityChange}) {
   return (
     <section className="locations container">

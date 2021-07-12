@@ -46,7 +46,7 @@ function ReviewsForm({offerId}) {
       value={RATINGS.length - i}
       reviewRating={reviewRating}
       onRatingChange={onRatingChange}
-      disabled={reviewIsSending}
+      reviewIsSending={reviewIsSending}
     />
   ));
 

@@ -16,8 +16,14 @@ function Rating({reviewRating, value, name, onRatingChange, reviewIsSending}) {
         type="radio"
         checked={reviewRating === value}
         disabled={reviewIsSending}
+        data-testid='rating-checkbox'
       />
-      <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title={name}>
+      <label
+        htmlFor={`${value}-stars`}
+        className="reviews__rating-label form__rating-label"
+        title={name}
+        data-testid='rating-label'
+      >
         <svg className="form__star-image" width="37" height="33">
           <use xlinkHref="#icon-star"></use>
         </svg>

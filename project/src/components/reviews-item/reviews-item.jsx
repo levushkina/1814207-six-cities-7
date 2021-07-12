@@ -1,6 +1,7 @@
 import React from 'react';
 import reviewsItemProp from './reviews-item.prop';
-import {convertDate, convertRatingToPercent} from '../../utils';
+import { convertDate, convertRatingToPercent } from '../../utils';
+
 
 function ReviewsItem({review}) {
   return (

@@ -1,6 +1,5 @@
 import {
   addReview,
-  clearReviewError,
   showReviewPostError,
   changeReviewSendingStatus,
   loadOffers,
@@ -10,7 +9,6 @@ import {
   loadReviews,
   fetchReviewsError,
   requiredAuthorization,
-  setUserEmail,
   loginError,
   closeSession,
   updateOffer,
@@ -39,16 +37,17 @@ export const fetchOffersReviews = (id) => (dispatch, _getState, api) => (
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
-      dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
-      dispatch(setUserEmail(data.email));
+      dispatch(requiredAuthorization({
+        status:  AuthorizationStatus.AUTH,
+        email: data.email,
+      }));
     })
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => localStorage.setItem('token', data.token))
-    .then(() => dispatch(requiredAuthorization(AuthorizationStatus.AUTH)))
-    .then(() => dispatch(setUserEmail(email)))
+    .then(() => dispatch(requiredAuthorization({status: AuthorizationStatus.AUTH, email: email})))
     .then(() => dispatch(redirectToRoute(AppRoute.MAIN)))
     .catch(() => dispatch(loginError()))
 );
@@ -62,10 +61,7 @@ export const logout = () => (dispatch, _getState, api) => (
 export const postReview = (id, comment) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.REVIEWS}/${id}`, comment)
     .then(({data}) => dispatch(addReview(convertSnekeToCamelCase(data))))
-    .then(() => {
-      dispatch(changeReviewSendingStatus(false));
-      dispatch(clearReviewError());
-    })
+    .then(() => dispatch(changeReviewSendingStatus(false)))
     .catch((error) => {
       error.response && dispatch(showReviewPostError(error.response.status));
     })

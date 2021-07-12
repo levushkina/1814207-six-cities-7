@@ -5,13 +5,13 @@ import MainOffers from '../main-offers/main-offers';
 import Header from '../header/header';
 import CitiestList from '../cities-list/cities-list';
 import { CITIES } from '../../const';
-import useSordedOffers from '../../hooks/use-sorded-offers';
+import useSortedOffers from '../../hooks/use-sorted-offers';
 import { getOffers } from '../../store/offers/selectors';
 
 
 function Main() {
   const offers = useSelector(getOffers);
-  const [currentCity, handleCurrentCityChange, sortType, handleSortTypeChange, sortedOffers] = useSordedOffers(offers);
+  const [currentCity, handleCurrentCityChange, sortType, handleSortTypeChange, sortedOffers] = useSortedOffers(offers);
   const citiesBlock = () => (
     offers.length > 0 ?
       <MainOffers offers={sortedOffers} currentCity={currentCity} handleSortTypeChange={handleSortTypeChange} sortType={sortType}/> :
