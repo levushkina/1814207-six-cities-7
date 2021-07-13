@@ -1,42 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
+import { Redirect } from 'react-router-dom';
 import Header from '../header/header';
-import ReviewsForm from '../reviews-form/reviews-form';
-import ReviewsList from '../reviews-list/reviews-list';
+import OffersReviews from '../offers-reviews/offers-reviews';
 import PlacesList from '../places-list/places-list';
 import Map from '../map/map';
 import LoadingScreen from '../loading-screen/loading-screen';
 import GalleryItem from '../gallery-item/gallery-item';
 import PropertyItem from '../property-item/property-item';
-import { PlacesListType, AuthorizationStatus } from '../../const';
-import { fetchOffersItem, fetchOffersNearby, fetchOffersReviews } from '../../store/api-actions';
-import { convertRatingToPercent } from '../../utils';
-import { getOfferItemIsLoaded, getOfferItem, getOffersNearbyIsLoaded, getOffersNearby } from '../../store/offers/selectors';
-import { getReviews, getReviewsIsLoaded } from '../../store/reviews/selectors';
-import { getAuthorizationStatus } from '../../store/user/selectors';
+import BookmarkButton from '../bookmark-button/bookmark-button';
+import { PlacesListType, BookmarkClass, AppRoute } from '../../const';
+import { fetchOffersNearby } from '../../store/api-actions';
+import { convertRatingToPercent, getOffersByIds } from '../../utils';
+import { getOffersIsLoaded, getOffersNearbyIsLoaded, getOffersNearby, getOffers } from '../../store/offers/selectors';
 
 
 function Offer() {
-  const offersNearby = useSelector(getOffersNearby);
-  const offerItem = useSelector(getOfferItem);
-  const offerItemIsLoaded = useSelector(getOfferItemIsLoaded);
-  const offersNearbyIsLoaded = useSelector(getOffersNearbyIsLoaded);
-  const reviews = useSelector(getReviews);
-  const status = useSelector(getAuthorizationStatus);
-  const reviewsIsLoaded = useSelector(getReviewsIsLoaded);
-  const dispatch = useDispatch();
-  const getOfferData = (offerId) => {
-    dispatch(fetchOffersItem(offerId));
-    dispatch(fetchOffersNearby(offerId));
-    dispatch(fetchOffersReviews(offerId));
-  };
-
   const { id } = useParams();
+  const offers = useSelector(getOffers);
+  const offersNearbyIds = useSelector(getOffersNearby);
+  const offerItem = offers.find((offer) => offer.id === Number(id));
+  const offerItemIsLoaded = useSelector(getOffersIsLoaded);
+  const offersNearbyIsLoaded = useSelector(getOffersNearbyIsLoaded);
+  const dispatch = useDispatch();
+  const offersNearby = getOffersByIds(offers, offersNearbyIds);
   const [activeCard, setActiveCard] = useState(0);
 
   useEffect(() => {
-    getOfferData(id);
+    if (offerItem) {
+      dispatch(fetchOffersNearby(id));
+    }
   }, [id]);
 
   if (!offerItemIsLoaded) {
@@ -45,11 +39,17 @@ function Offer() {
     );
   }
 
+  if (!offerItem) {
+    return (
+      <Redirect to={AppRoute.NOT_FOUND} />
+    );
+  }
+
+
   const images = offerItem.images.slice(0, 6);
   return (
     <div className="page">
       <Header />
-
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -68,12 +68,11 @@ function Offer() {
                 <h1 className="property__name">
                   {offerItem.title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <BookmarkButton offerId={offerItem.id} isActive={offerItem.isFavorite} className={BookmarkClass.OFFER_CARD}>
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                </BookmarkButton>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -124,13 +123,7 @@ function Offer() {
                   </p>
                 </div>
               </div>
-              {reviewsIsLoaded && (
-                <section className="property__reviews reviews">
-                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                  <ReviewsList reviews={reviews}/>
-                  {status === AuthorizationStatus.AUTH && <ReviewsForm offerId={id}/>}
-                </section>
-              )}
+              <OffersReviews offerId={id}/>
             </div>
           </div>
           <section className="property__map map">

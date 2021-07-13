@@ -3,7 +3,6 @@ import { errorCode, ReviewsPostError } from '../const';
 
 export const ActionType = {
   LOAD_OFFERS: 'loadOffers',
-  LOAD_OFFERS_ITEM: 'loadOffersItem',
   REQUIRED_AUTHORIZATION: 'requiredAuthorization',
   LOGOUT: 'logout',
   SET_USER_EMAIL: 'setUserEmail',
@@ -17,14 +16,12 @@ export const ActionType = {
   FETCH_OFFERS_NEARBY_ERROR: 'fetchOffersNearbyError',
   FETCH_REVIEWS_ERROR: 'fetchReviewsError',
   LOGIN_ERROR: 'loginError',
+  UPDATE_OFFER: 'updateOffer',
+  LOAD_FAVORITES: 'loadFavorites',
 };
 
 export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({
   payload: offers,
-}));
-
-export const loadOffersItem = createAction(ActionType.LOAD_OFFERS_ITEM, (offer) => ({
-  payload: offer,
 }));
 
 export const requiredAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => ({
@@ -80,3 +77,11 @@ export const fetchOffersNearbyError = createAction(ActionType.FETCH_OFFERS_NEARB
 export const fetchReviewsError = createAction(ActionType.FETCH_REVIEWS_ERROR);
 
 export const loginError = createAction(ActionType.LOGIN_ERROR);
+
+export const updateOffer = createAction(ActionType.UPDATE_OFFER, (offer) => ({
+  payload: offer,
+}));
+
+export const loadFavorites = createAction(ActionType.LOAD_FAVORITES, (favoritesOffers) => ({
+  payload: favoritesOffers,
+}));

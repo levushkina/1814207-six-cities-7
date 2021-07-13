@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import offerProp from '../offer/offer.prop';
 import {convertRatingToPercent} from '../../utils';
+import { BookmarkClass } from '../../const';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 
 function FavoriteItem(props) {
@@ -20,12 +22,11 @@ function FavoriteItem(props) {
             <b className="place-card__price-value">&euro;{place.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+          <BookmarkButton offerId={place.id} isActive={place.isFavorite} className={BookmarkClass.OFFER_LIST}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">In bookmarks</span>
-          </button>
+          </BookmarkButton>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
