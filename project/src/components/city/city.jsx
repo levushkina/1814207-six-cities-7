@@ -2,15 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function City({city, currentCity, onCityChange}) {
+  const handleCityClick = (evt) => {
+    evt.preventDefault();
+    onCityChange(city);
+  };
+
   return (
     <li className="locations__item">
       <a
         className={`locations__item-link tabs__item ${currentCity === city && 'tabs__item--active '}`}
         href="#"
-        onClick={(evt) => {
-          evt.preventDefault();
-          onCityChange(city);
-        }}
+        onClick={handleCityClick}
       >
         <span>{city}</span>
       </a>

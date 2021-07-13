@@ -1,8 +1,7 @@
 import React from 'react';
 import { Switch, Route, Router as BrowserRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { AppRoute } from '../../const';
-import PropTypes from 'prop-types';
 import Main from '../main/main';
 import Offer from '../offer/offer';
 import Favorites from '../favorites/favorites';
@@ -11,9 +10,11 @@ import NotFound from '../not-found/not-found';
 import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
+import { getOffersIsLoaded } from '../../store/offers/selectors';
 
 
-function App({offersIsLoaded, authorizationStatus}) {
+function App() {
+  const offersIsLoaded = useSelector(getOffersIsLoaded);
   if (!offersIsLoaded) {
     return (
       <BrowserRouter history={browserHistory}>
@@ -48,15 +49,4 @@ function App({offersIsLoaded, authorizationStatus}) {
   );
 }
 
-App.propTypes = {
-  offersIsLoaded: PropTypes.bool.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  offersIsLoaded: state.offersIsLoaded,
-  authorizationStatus: state.authorizationStatus,
-});
-
-export {App};
-export default connect(mapStateToProps, null)(App);
+export default App;

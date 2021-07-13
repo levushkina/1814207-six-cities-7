@@ -31,4 +31,5 @@ SortingForm.propTypes = {
   sortType: PropTypes.string.isRequired,
 };
 
-export default SortingForm;
+export { SortingForm };
+export default React.memo(SortingForm);

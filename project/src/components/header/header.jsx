@@ -1,11 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AuthLink from '../auth-link/auth-link';
 import ProfileLink from '../profile-link/profile-link';
+import { getUserEmail } from '../../store/user/selectors';
 
-function Header({authorizationStatus, userEmail}) {
+
+function Header() {
+  const userEmail = useSelector(getUserEmail);
+
   return (
     <header className="header">
       <div className="container">
@@ -31,15 +34,5 @@ function Header({authorizationStatus, userEmail}) {
   );
 }
 
-Header.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  userEmail: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  userEmail: state.userEmail,
-});
-
-export {Header};
-export default connect(mapStateToProps)(Header);
+export { Header };
+export default React.memo(Header);

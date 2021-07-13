@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { ActionCreator } from '../../store/action';
+import React, { useState, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeReviewSendingStatus } from '../../store/action';
 import PropTypes from 'prop-types';
 import Rating from '../rating/rating';
 import FormError from '../form-error/form-error';
 import { RATINGS, ReviewsTextLimits } from '../../const';
 import { postReview } from '../../store/api-actions';
+import { getReviewIsSending, getReviewError } from '../../store/reviews/selectors';
 
 
-function ReviewsForm({offerId, onSubmit, reviewIsSending, reviewError}) {
+function ReviewsForm({offerId}) {
+  const reviewIsSending = useSelector(getReviewIsSending);
+  const reviewError = useSelector(getReviewError);
+  const dispatch = useDispatch();
+  const onSubmit = (id, data) => {
+    dispatch(changeReviewSendingStatus(true));
+    dispatch(postReview(id, data));
+  };
+
   const [reviewRating, setReviewRating] = useState(0);
   const [reviewText, setReviewText] = useState('');
   const [enableSubmit, setEnableSubmit] = useState(false);
@@ -17,10 +26,10 @@ function ReviewsForm({offerId, onSubmit, reviewIsSending, reviewError}) {
     reviewRating && ReviewsTextLimits.MAX >= reviewText.length && reviewText.length >= ReviewsTextLimits.MIN
   );
 
-  const handleRatingChange = (event) => {
+  const onRatingChange = useCallback((event) => {
     setReviewRating(Number(event.target.value));
     setEnableSubmit(formValidate());
-  };
+  }, [reviewRating, reviewIsSending]);
 
   const handleReviewChange = (event) => {
     setReviewText(event.target.value);
@@ -34,20 +43,22 @@ function ReviewsForm({offerId, onSubmit, reviewIsSending, reviewError}) {
     setReviewText('');
   };
 
+  const ratingsItems = RATINGS.map((rating, i) => (
+    <Rating
+      key={rating}
+      name={rating}
+      value={RATINGS.length - i}
+      reviewRating={reviewRating}
+      onRatingChange={onRatingChange}
+      disabled={reviewIsSending}
+    />
+  ));
+
   return (
     <form onSubmit={handleFormSubmit} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {RATINGS.map((rating, i) => (
-          <Rating
-            key={rating}
-            name={rating}
-            value={RATINGS.length - i}
-            reviewRating={reviewRating}
-            handleRatingChange={handleRatingChange}
-            disabled={reviewIsSending}
-          />
-        ))}
+        {ratingsItems}
       </div>
       <textarea
         onChange={handleReviewChange}
@@ -59,7 +70,7 @@ function ReviewsForm({offerId, onSubmit, reviewIsSending, reviewError}) {
         maxLength="300"
         disabled={reviewIsSending}
       />
-      <FormError errorText={reviewError}/>
+      {reviewError && <FormError errorText={reviewError}/>}
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
@@ -72,23 +83,6 @@ function ReviewsForm({offerId, onSubmit, reviewIsSending, reviewError}) {
 
 ReviewsForm.propTypes = {
   offerId: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  reviewIsSending: PropTypes.bool.isRequired,
-  reviewError: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
-  reviewIsSending: state.reviewIsSending,
-  reviewError: state.reviewError,
-});
-
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(id, data) {
-    dispatch(ActionCreator.changeReviewSendingStatus(true));
-    dispatch(postReview(id, data));
-  },
-});
-
-export {ReviewsForm};
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewsForm);
+export default ReviewsForm;

@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-function Rating({reviewRating, value, name, handleRatingChange, reviewIsSending}) {
+function Rating({reviewRating, value, name, onRatingChange, reviewIsSending}) {
+  const handleRatingChange = (evt) => onRatingChange(evt);
+
   return (
     <>
       <input
@@ -27,9 +29,10 @@ function Rating({reviewRating, value, name, handleRatingChange, reviewIsSending}
 Rating.propTypes = {
   value: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  handleRatingChange: PropTypes.func.isRequired,
+  onRatingChange: PropTypes.func.isRequired,
   reviewIsSending: PropTypes.bool,
   reviewRating: PropTypes.number.isRequired,
 };
 
-export default Rating;
+export { Rating };
+export default React.memo(Rating);

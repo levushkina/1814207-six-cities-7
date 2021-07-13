@@ -8,9 +8,10 @@ import { PlacesListType, PlaceCardClassName } from '../../const';
 
 function PlaceCard(props) {
   const {place, onPlaceMouseOver, type = PlacesListType.MAIN} = props;
+  const handlePlaceMouseOver = () => onPlaceMouseOver(place.id);
 
   return (
-    <article className={`place-card ${PlaceCardClassName[type]}`} onMouseOver={onPlaceMouseOver}>
+    <article className={`place-card ${PlaceCardClassName[type]}`} onMouseOver={handlePlaceMouseOver}>
       {place.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -55,4 +56,5 @@ PlaceCard.propTypes = {
   type: PropTypes.string.isRequired,
 };
 
-export default PlaceCard;
+export { PlaceCard };
+export default React.memo(PlaceCard);
