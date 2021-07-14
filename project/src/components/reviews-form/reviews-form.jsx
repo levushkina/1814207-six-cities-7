@@ -1,42 +1,27 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeReviewSendingStatus } from '../../store/action';
 import PropTypes from 'prop-types';
 import Rating from '../rating/rating';
 import FormError from '../form-error/form-error';
 import { RATINGS, ReviewsTextLimits } from '../../const';
-import { postReview } from '../../store/api-actions';
 import { getReviewIsSending, getReviewError } from '../../store/reviews/selectors';
+import { useReviewsForm } from '../../hooks/use-reviews-form';
+import { changeReviewSendingStatus } from '../../store/action';
+import { postReview } from '../../store/api-actions';
 
 
 function ReviewsForm({offerId}) {
   const reviewIsSending = useSelector(getReviewIsSending);
   const reviewError = useSelector(getReviewError);
+  const [enableSubmit, handleRatingChange, handleReviewChange, onFormSubmit, reviewRating, reviewText] = useReviewsForm(reviewIsSending);
+  const handleReviewTextChange = (event) => handleReviewChange(event.target.value);
   const dispatch = useDispatch();
-  const [reviewRating, setReviewRating] = useState(0);
-  const [reviewText, setReviewText] = useState('');
-  const [enableSubmit, setEnableSubmit] = useState(false);
-
-  const formValidate = () => (
-    reviewRating && ReviewsTextLimits.MAX >= reviewText.length && reviewText.length >= ReviewsTextLimits.MIN
-  );
-
-  const onRatingChange = useCallback((event) => {
-    setReviewRating(Number(event.target.value));
-    setEnableSubmit(formValidate());
-  }, [reviewRating, reviewIsSending]);
-
-  const handleReviewChange = (event) => {
-    setReviewText(event.target.value);
-    setEnableSubmit(formValidate());
-  };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
     dispatch(changeReviewSendingStatus(true));
     dispatch(postReview(offerId, {comment: reviewText, rating: reviewRating}));
-    setReviewRating(0);
-    setReviewText('');
+    onFormSubmit();
   };
 
   const ratingsItems = RATINGS.map((rating, i) => (
@@ -45,26 +30,27 @@ function ReviewsForm({offerId}) {
       name={rating}
       value={RATINGS.length - i}
       reviewRating={reviewRating}
-      onRatingChange={onRatingChange}
+      onRatingChange={handleRatingChange}
       reviewIsSending={reviewIsSending}
     />
   ));
 
   return (
-    <form onSubmit={handleFormSubmit} className="reviews__form form" action="#" method="post">
+    <form onSubmit={handleFormSubmit} className="reviews__form form" action="#">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {ratingsItems}
       </div>
       <textarea
-        onChange={handleReviewChange}
+        onChange={handleReviewTextChange}
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewText}
-        maxLength="300"
+        maxLength={ReviewsTextLimits.MAX}
         disabled={reviewIsSending}
+        data-testid='rating-textarea'
       />
       {reviewError && <FormError errorText={reviewError}/>}
       <div className="reviews__button-wrapper">

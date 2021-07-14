@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import offerProp from '../offer/offer.prop';
-import useMap from '../../hooks/use-map';
-import useMapMarkers from '../../hooks/use-map-markers';
+import { useMap } from '../../hooks/use-map';
+import { useMapMarkers } from '../../hooks/use-map-markers';
+
 
 function Map({places, activeCardId}) {
   const mapRef = useRef(null);

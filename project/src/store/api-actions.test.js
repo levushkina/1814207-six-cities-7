@@ -51,11 +51,17 @@ describe('Async operations', () => {
     const fakeUser = {email: 'test@mail.ru', password: '123456'};
     const loginLoader = login(fakeUser);
 
+    Storage.prototype.setItem = jest.fn();
+
     apiMock
       .onPost(APIRoute.LOGIN)
-      .reply(200, [{fake: true}]);
+      .reply(200, {token: 'newtoken'});
 
     return loginLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(Storage.prototype.setItem).toBeCalledTimes(1);
+        expect(Storage.prototype.setItem).nthCalledWith(1, 'token', 'newtoken');
+      })
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
 
@@ -96,17 +102,21 @@ describe('Async operations', () => {
     const dispatch = jest.fn();
     const logoutLoader = logout();
 
+    Storage.prototype.removeItem = jest.fn();
+
     apiMock
       .onDelete(APIRoute.LOGOUT)
-      .reply(200, [{fake: true}]);
+      .reply(204, [{fake: true}]);
 
     return logoutLoader(dispatch, () => {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
-
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOGOUT,
         });
+
+        expect(Storage.prototype.removeItem).toBeCalledTimes(1);
+        expect(Storage.prototype.removeItem).nthCalledWith(1, 'token');
       });
   });
 

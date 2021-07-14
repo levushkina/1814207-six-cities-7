@@ -5,7 +5,6 @@ import { loadOffers, loadOffersNearby, fetchOffersNearbyError, updateOffer, load
 const initialState = {
   offers: [],
   offersIsLoaded: false,
-  offerItemIsLoaded: false,
   offersNearby: [],
   offersNearbyIsLoaded: false,
   favorites: [],

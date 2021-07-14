@@ -5,45 +5,9 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import PlaceCard from './place-card';
+import { mockOffers } from '../../mock/test-mocks';
+import userEvent from '@testing-library/user-event';
 
-
-const mockOffer = {
-  bedrooms: 3,
-  city: {
-    name: 'Amsterdam',
-    location: {
-      latitude: 52.370216,
-      longitude: 4.895168,
-      zoom: 10,
-    },
-  },
-  description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-  goods: ['Heating', 'Kitchen', 'Washing machine', 'Air conditioning'],
-  host: {
-    id: 3,
-    name: 'Angelina',
-    avatarUrl: 'img/avatar-angelina.jpg',
-    isPro: true,
-  },
-  id: 1,
-  images: [
-    'https://7.react.pages.academy/static/hotel/20.jpg',
-    'https://7.react.pages.academy/static/hotel/15.jpg',
-  ],
-  isFavorite: false,
-  isPremium: true,
-  location: {
-    latitude: 52.35514938496378,
-    longitude: 4.673877537499948,
-    zoom: 8,
-  },
-  maxAdults: 4,
-  previewImage: 'https://7.react.pages.academy/static/hotel/14.jpg',
-  price: 120,
-  rating: 4.8,
-  type: 'apartment',
-  title: 'Beautiful & luxurious studio at great location',
-};
 
 const history = createMemoryHistory();
 const mockStore = configureStore({});
@@ -55,7 +19,7 @@ describe('Component: PlaceCard', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <PlaceCard place={mockOffer} onPlaceMouseOver={jest.fn()} type='NEAR'/>
+          <PlaceCard place={mockOffers[0]} onPlaceMouseOver={jest.fn()} type='NEAR'/>
         </Router>
       </Provider>,
     );
@@ -64,5 +28,45 @@ describe('Component: PlaceCard', () => {
     expect(screen.getByText(/120/i)).toBeInTheDocument();
     expect(screen.getByText('Beautiful & luxurious studio at great location')).toBeInTheDocument();
     expect(screen.getByText('apartment')).toBeInTheDocument();
+  });
+
+  it('onPlaceMouseOver should called when offer hovered', () => {
+    const onPlaceMouseOver = jest.fn();
+
+    const {container} = render(
+      <Provider store={store}>
+        <Router history={history}>
+          <PlaceCard place={mockOffers[0]} onPlaceMouseOver={onPlaceMouseOver} type='NEAR'/>
+        </Router>
+      </Provider>,
+    );
+
+    userEvent.hover(container.querySelector('.place-card'));
+    expect(onPlaceMouseOver).toBeCalled();
+    expect(onPlaceMouseOver).nthCalledWith(1, 1);
+  });
+
+  it('should render premium label if isPremium true', () => {
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <PlaceCard place={mockOffers[1]} onPlaceMouseOver={jest.fn()} type='NEAR'/>
+        </Router>
+      </Provider>,
+    );
+
+    expect(screen.getByText(/Premium/i)).toBeInTheDocument();
+  });
+
+  it('should no render premium label if isPremium false', () => {
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <PlaceCard place={mockOffers[0]} onPlaceMouseOver={jest.fn()} type='NEAR'/>
+        </Router>
+      </Provider>,
+    );
+
+    expect(screen.queryByText(/Premium/i)).not.toBeInTheDocument();
   });
 });

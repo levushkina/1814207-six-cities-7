@@ -1,4 +1,4 @@
-import { MAX_RATING, sortOption, AuthorizationStatus } from './const';
+import { MAX_RATING, sortOption, AuthorizationStatus, ReviewsTextLimits } from './const';
 
 
 export const convertRatingToPercent = (placeRating) => `${placeRating / MAX_RATING * 100}%`;
@@ -42,6 +42,10 @@ export const sortOffers = (type, offers) => {
 export const isCheckedAuth = (authorizationStatus) =>
   authorizationStatus === AuthorizationStatus.UNKNOWN;
 
-export const getOffersByIds= (offers, ids) => ids.map((id) => (
+export const getOffersByIds = (offers, ids) => ids.map((id) => (
   offers.find((offer) => offer.id === id)
 ));
+
+export const formValidate = (reviewRating, reviewText) => (
+  reviewRating > 0 && ReviewsTextLimits.MAX >= reviewText.length && reviewText.length >= ReviewsTextLimits.MIN
+);
