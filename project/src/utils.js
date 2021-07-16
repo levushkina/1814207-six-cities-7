@@ -42,10 +42,6 @@ export const sortOffers = (type, offers) => {
 export const isCheckedAuth = (authorizationStatus) =>
   authorizationStatus === AuthorizationStatus.UNKNOWN;
 
-export const replaceOffer = (oldOffers, newOffer) => (
-  oldOffers.map((oldOffer) => oldOffer.id === newOffer.id ? newOffer : oldOffer)
-);
-
 export const getOffersByIds= (offers, ids) => ids.map((id) => (
   offers.find((offer) => offer.id === id)
 ));

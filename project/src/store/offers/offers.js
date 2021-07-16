@@ -1,6 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { loadOffers, loadOffersNearby, fetchOffersNearbyError, updateOffer, loadFavorites } from '../action';
-import { replaceOffer } from '../../utils';
 
 
 const initialState = {
@@ -28,7 +27,7 @@ const offers = createReducer(initialState, (builder) => {
       state.offersNearbyIsLoaded = false;
     })
     .addCase(updateOffer, (state, action) => {
-      state.offers = replaceOffer(state.offers, action.payload);
+      state.offers = state.offers.map((oldOffer) => oldOffer.id === action.payload.id ? action.payload : oldOffer);
     })
     .addCase(loadFavorites, (state, action) => {
       state.favorites = action.payload.map((offer) => offer.id);
