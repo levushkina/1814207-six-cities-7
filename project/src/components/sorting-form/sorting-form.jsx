@@ -11,7 +11,7 @@ function SortingForm({sortType, onSortTypeChange}) {
   const sortOptionItems = SORT_TYPES.map((type) => <SortOptionItem key={type} type={type} sortType={sortType} onSortTypeChange={onSortTypeChange}/>);
 
   return (
-    <form className="places__sorting" action="#" method="get" onClick={() => handleSortingClick()}>
+    <form className="places__sorting" action="#" method="get" onClick={handleSortingClick}>
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex="0">
         {sortType}

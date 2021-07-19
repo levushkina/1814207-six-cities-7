@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import leaflet from 'leaflet';
 
-function useMap(mapRef, city) {
+export const useMap = (mapRef, city) => {
   const [map, setMap] = useState(null);
 
   useEffect(() => {
@@ -30,6 +30,4 @@ function useMap(mapRef, city) {
   }, [mapRef, map, city]);
 
   return map;
-}
-
-export default useMap;
+};

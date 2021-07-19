@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 
 function Rating({reviewRating, value, name, onRatingChange, reviewIsSending}) {
-  const handleRatingChange = (evt) => onRatingChange(evt);
+  const handleRatingChange = (evt) => onRatingChange(Number(evt.target.value));
 
   return (
     <>

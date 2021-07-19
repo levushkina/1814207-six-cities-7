@@ -17,7 +17,6 @@ describe('Reducer: offers', () => {
       .toEqual({
         offers: [],
         offersIsLoaded: false,
-        offerItemIsLoaded: false,
         offersNearby: [],
         offersNearbyIsLoaded: false,
         favorites: [],

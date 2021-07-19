@@ -99,6 +99,23 @@ describe('Application Routing', () => {
     expect(screen.getByText(/Offer room/i)).toBeInTheDocument();
   });
 
+  it('should render "Favorites" when user navigate to "/favorites"', () => {
+    history.push(AppRoute.FAVORITES);
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Route exact path={AppRoute.FAVORITES}>
+            <h1>Favorite room</h1>
+          </Route>
+        </Router>
+      </Provider>,
+    );
+
+    expect(screen.getByText(/Favorite room/i)).toBeInTheDocument();
+  });
+
+
   it('should render NotFound when user navigate to non-existed route', () => {
     history.push('/non-existent-route');
     render(fakeApp);
@@ -125,5 +142,22 @@ describe('Application Routing', () => {
 
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
     expect(screen.getByLabelText('E-mail')).toBeInTheDocument();
+  });
+
+  it('should render LoadingScreen when offers is no loaded', () => {
+    store = createFakeStore({
+      USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
+      OFFER: {offers: [], offersIsLoaded: false},
+    });
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <App />
+        </Router>
+      </Provider>
+    );
+
+    expect(screen.getByText(/Loading .../i)).toBeInTheDocument();
   });
 });

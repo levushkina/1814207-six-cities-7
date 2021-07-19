@@ -45,7 +45,6 @@ function Offer() {
     );
   }
 
-
   const images = offerItem.images.slice(0, 6);
   return (
     <div className="page">

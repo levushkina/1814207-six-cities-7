@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../const';
 
 
-function useMapMarker(map, places, activeCardId) {
+export const useMapMarkers = (map, places, activeCardId) => {
   const [markers, setMarkers] = useState({});
   const mapMarkers = [];
 
@@ -41,6 +41,4 @@ function useMapMarker(map, places, activeCardId) {
       });
     }
   }, [map, places, activeCardId]);
-}
-
-export default useMapMarker;
+};

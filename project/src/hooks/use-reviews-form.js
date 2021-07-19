@@ -1,22 +1,27 @@
 import { useState, useCallback } from 'react';
-import { DEFAULT_CITY, sortOption } from '../const';
-import { sortOffers, filterOfferByCity } from '../utils';
+import { formValidate } from '../utils';
 
-function useReviewsForm(offers) {
-  const [currentCity, setCurrentCity] = useState(DEFAULT_CITY);
-  const [sortType, setSortType] = useState(sortOption.DEFAULT);
 
-  const sortedOffers = sortOffers(sortType, filterOfferByCity(currentCity, offers));
+export const useReviewsForm = (reviewIsSending) => {
+  const [reviewRating, setReviewRating] = useState(0);
+  const [reviewText, setReviewText] = useState('');
+  const [enableSubmit, setEnableSubmit] = useState(false);
 
-  const handleCurrentCityChange = useCallback((cityName) => {
-    setCurrentCity(cityName);
-  }, []);
 
-  const handleSortTypeChange = useCallback((type) => {
-    setSortType(type);
-  }, []);
+  const handleRatingChange = useCallback((value) => {
+    setReviewRating(value);
+    setEnableSubmit(formValidate(reviewRating, reviewText));
+  }, [reviewRating, reviewIsSending]);
 
-  return [currentCity, handleCurrentCityChange, sortType, handleSortTypeChange, sortedOffers];
-}
+  const handleReviewChange = (value) => {
+    setReviewText(value);
+    setEnableSubmit(formValidate(reviewRating, reviewText));
+  };
 
-export default useReviewsForm;
+  const onFormSubmit = () => {
+    setReviewRating(0);
+    setReviewText('');
+  };
+
+  return [enableSubmit, handleRatingChange, handleReviewChange, onFormSubmit, reviewRating, reviewText];
+};

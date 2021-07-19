@@ -5,7 +5,7 @@ import MainOffers from '../main-offers/main-offers';
 import Header from '../header/header';
 import CitiestList from '../cities-list/cities-list';
 import { CITIES } from '../../const';
-import useSortedOffers from '../../hooks/use-sorted-offers';
+import { useSortedOffers } from '../../hooks/use-sorted-offers';
 import { getOffers } from '../../store/offers/selectors';
 
 

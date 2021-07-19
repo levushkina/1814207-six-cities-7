@@ -52,4 +52,49 @@ describe('Component: Rating', () => {
 
     expect(checkbox).toBeChecked();
   });
+
+  it('onRatingChange should called when user choose rating', () => {
+    const onRatingChange = jest.fn();
+    const fakeId = 3;
+
+    render(
+      <Rating
+        name='perfect'
+        value={fakeId}
+        reviewRating={5}
+        onRatingChange={onRatingChange}
+        reviewIsSending={false}
+      />
+    );
+
+    userEvent.click(screen.getByTestId('rating-checkbox'));
+    expect(onRatingChange).toBeCalled();
+    expect(onRatingChange).nthCalledWith(1, fakeId);
+  });
+
+  it('should checked when user clicked', () => {
+    const fakeId = 2;
+
+    const {rerender} = render(
+      <Rating
+        name='perfect'
+        value={fakeId}
+        reviewRating={5}
+        onRatingChange={jest.fn()}
+        reviewIsSending={false}
+      />);
+
+    expect(screen.getByTestId('rating-checkbox')).not.toBeChecked();
+
+    rerender(
+      <Rating
+        name='perfect'
+        value={fakeId}
+        reviewRating={fakeId}
+        onRatingChange={jest.fn()}
+        reviewIsSending={false}
+      />);
+
+    expect(screen.getByTestId('rating-checkbox')).toBeChecked();
+  });
 });
