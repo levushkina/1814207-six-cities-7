@@ -1,39 +1,31 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import ReviewsList from '../reviews-list/reviews-list';
 import ReviewsForm from '../reviews-form/reviews-form';
 import PropTypes from 'prop-types';
-import { fetchOffersReviews } from '../../store/api-actions';
+import reviewsItemProp from '../reviews-item/reviews-item.prop';
 import { AuthorizationStatus } from '../../const';
-import { getReviews, getReviewsIsLoaded } from '../../store/reviews/selectors';
+import { sortReviewsByDate } from '../../utils';
 import { getAuthorizationStatus } from '../../store/user/selectors';
 
 
-function OffersReviews({offerId}) {
-  const dispatch = useDispatch();
+function OffersReviews({offerId, reviews}) {
   const status = useSelector(getAuthorizationStatus);
-  const reviews = useSelector(getReviews);
-  const reviewsIsLoaded = useSelector(getReviewsIsLoaded);
-
-  useEffect(() => {
-    if (!reviewsIsLoaded) {
-      dispatch(fetchOffersReviews(offerId));
-    }
-  }, [reviews, dispatch]);
+  const sortedReviews = sortReviewsByDate([...reviews]).splice(0, 10);
 
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot;
-        {reviewsIsLoaded && (<span className="reviews__amount">{reviews.length}</span>)}
+        <span className="reviews__amount">{sortedReviews.length}</span>
       </h2>
-      {reviewsIsLoaded && (<ReviewsList reviews={reviews}/>)}
+      <ReviewsList reviews={sortedReviews}/>
       {status === AuthorizationStatus.AUTH && <ReviewsForm offerId={offerId}/>}
     </section>
-
   );
 }
 
 OffersReviews.propTypes = {
+  reviews: PropTypes.arrayOf(reviewsItemProp).isRequired,
   offerId: PropTypes.string.isRequired,
 };
 

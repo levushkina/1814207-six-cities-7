@@ -56,6 +56,7 @@ export const logout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
     .then(() => dispatch(closeSession()))
+    .then(() => dispatch(redirectToRoute(AppRoute.MAIN)))
 );
 
 export const postReview = (id, comment) => (dispatch, _getState, api) => (

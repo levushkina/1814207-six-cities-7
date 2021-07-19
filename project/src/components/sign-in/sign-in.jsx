@@ -68,6 +68,7 @@ function SignIn() {
                   placeholder="Password"
                   required=""
                   data-testid="password"
+                  pattern="[a-zA-Z0-9]{1,}"
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>

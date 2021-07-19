@@ -2,18 +2,21 @@ import { sortOption, AuthorizationStatus } from './const';
 import {
   convertRatingToPercent,
   convertSnekeToCamelCase,
-  sortedPlacesByCity,
+  sortPlacesByCity,
   convertDate,
   filterOfferByCity,
   sortOffers,
   isCheckedAuth,
   getOffersByIds,
-  formValidate
+  formValidate,
+  sortReviewsByDate
 } from './utils';
+import { mockReviews } from './mock/test-mocks';
 
 describe('Function: convertRatingToPercen', () => {
-  it('should return percent rating', () => {
-    expect(convertRatingToPercent(4.5)).toBe('90%');
+  it('should return percent rating for round rating value', () => {
+    expect(convertRatingToPercent(4)).toBe('80%');
+    expect(convertRatingToPercent(4.5)).toBe('100%');
   });
 });
 
@@ -39,7 +42,7 @@ describe('Function: convertSnekeToCamelCase', () => {
   });
 });
 
-describe('Function: sortedPlacesByCity', () => {
+describe('Function: sortPlacesByCity', () => {
   it('should return places grouped by city', () => {
     const fakeData = [
       {id: 1, city: {name: 'Amsterdam'}},
@@ -61,7 +64,7 @@ describe('Function: sortedPlacesByCity', () => {
         {id: 3, city: {name: 'Hamburg'}}
       ]
     };
-    expect(sortedPlacesByCity(fakeData)).toStrictEqual(expectResult);
+    expect(sortPlacesByCity(fakeData)).toStrictEqual(expectResult);
   });
 });
 
@@ -183,6 +186,38 @@ describe('Function: filterOfferByCity', () => {
 
     it('should return true when reviewRating & reviewText is valid', () => {
       expect(formValidate(3, 'long text more than 50 characters long text more than 50 characters.')).toBe(true);
+    });
+  });
+
+  describe('Function: sortReviewsByDate', () => {
+    it('should return offers sorted by price low to high', () => {
+      const expectResult = [
+        {
+          comment: 'Comment behind a a river by the unique lightness of Amsterdam.',
+          date: '2019-06-08T14:13:56.569Z',
+          id: 2,
+          rating: 3,
+          user: {
+            avatarUrl: 'img/1.png',
+            id: 4,
+            is_pro: false,
+            name: 'ANN'
+          }
+        },
+        {
+          comment: 'Comment a a river by the unique lightness of Amsterdam.',
+          date: '2019-05-08T14:13:56.569Z',
+          id: 1,
+          rating: 4,
+          user: {
+            avatarUrl: 'img/1.png',
+            id: 4,
+            is_pro: false,
+            name: 'Max'
+          }
+        }
+      ];
+      expect(sortReviewsByDate(mockReviews)).toStrictEqual(expectResult);
     });
   });
 });

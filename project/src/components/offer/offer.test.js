@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import * as Redux from 'react-redux';
 import { createMemoryHistory } from 'history';
 import Offer from './offer';
-import { mockOffers } from '../../mock/test-mocks';
+import { mockOffers, mockReviews } from '../../mock/test-mocks';
 import { AppRoute, AuthorizationStatus } from '../../const';
 
 
@@ -169,5 +169,77 @@ describe('Component: Offer', () => {
     );
 
     expect(screen.queryByText(/Premium/i)).not.toBeInTheDocument();
+  });
+
+  it('should render pro label for host', () => {
+    store = mockStore({
+      USER: {authorizationStatus: AuthorizationStatus.AUTH},
+      OFFER: {offers: mockOffers, offersIsLoaded: true, offersNearby: [], offersNearbyIsLoaded: false},
+      REVIEW: {reviews: [], reviewsIsLoaded: true},
+      dispatch: jest.fn(),
+    });
+    const dispatch = jest.fn();
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
+
+    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: `${mockOffer.id}` });
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Offer />
+        </Router>
+      </Provider>,
+    );
+
+    expect(screen.getByText(/Pro/i)).toBeInTheDocument();
+  });
+
+  it('should render pro label for host', () => {
+    store = mockStore({
+      USER: {authorizationStatus: AuthorizationStatus.AUTH},
+      OFFER: {offers: mockOffers, offersIsLoaded: true, offersNearby: [], offersNearbyIsLoaded: false},
+      REVIEW: {reviews: [], reviewsIsLoaded: true},
+      dispatch: jest.fn(),
+    });
+    const dispatch = jest.fn();
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
+
+    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: `${mockOffers[1].id}` });
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Offer />
+        </Router>
+      </Provider>,
+    );
+
+    expect(screen.queryByText(/Pro/i)).not.toBeInTheDocument();
+  });
+
+  it('should no render OffersReviews when reviews is not loaded', () => {
+    store = mockStore({
+      USER: {authorizationStatus: AuthorizationStatus.AUTH},
+      OFFER: {offers: mockOffers, offersIsLoaded: true, offersNearby: [], offersNearbyIsLoaded: false},
+      REVIEW: {reviews: mockReviews, reviewsIsLoaded: false},
+      dispatch: jest.fn(),
+    });
+    const dispatch = jest.fn();
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
+
+    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: `${mockOffer.id}` });
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Offer />
+        </Router>
+      </Provider>,
+    );
+
+    mockReviews.forEach((review) => expect(screen.queryByText(review.comment)).not.toBeInTheDocument());
   });
 });

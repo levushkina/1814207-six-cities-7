@@ -2,20 +2,20 @@ import { createAction } from '@reduxjs/toolkit';
 import { errorCode, ReviewsPostError } from '../const';
 
 export const ActionType = {
-  LOAD_OFFERS: 'loadOffers',
-  REQUIRED_AUTHORIZATION: 'requiredAuthorization',
-  LOGOUT: 'logout',
-  REDIRECT_TO_ROUTE: 'redirectToRoute',
-  LOAD_OFFERS_NEARBY: 'loadOffersNearby',
-  LOAD_REVIEWS: 'loadReviews',
-  ADD_REVIEW: 'addReview',
-  CHANGE_REVIEW_SENDING_STATUS: 'changeReviewSendingStatus',
-  SHOW_REVIEW_POST_ERROR: 'showReviewPostError',
-  FETCH_OFFERS_NEARBY_ERROR: 'fetchOffersNearbyError',
-  FETCH_REVIEWS_ERROR: 'fetchReviewsError',
-  LOGIN_ERROR: 'loginError',
-  UPDATE_OFFER: 'updateOffer',
-  LOAD_FAVORITES: 'loadFavorites',
+  LOAD_OFFERS: 'offer/loadOffers',
+  REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
+  LOGOUT: 'user/logout',
+  REDIRECT_TO_ROUTE: 'user/redirectToRoute',
+  LOAD_OFFERS_NEARBY: 'offer/loadOffersNearby',
+  LOAD_REVIEWS: 'review/loadReviews',
+  ADD_REVIEW: 'review/addReview',
+  CHANGE_REVIEW_SENDING_STATUS: 'review/changeReviewSendingStatus',
+  SHOW_REVIEW_POST_ERROR: 'review/showReviewPostError',
+  FETCH_OFFERS_NEARBY_ERROR: 'offer/fetchOffersNearbyError',
+  FETCH_REVIEWS_ERROR: 'review/fetchReviewsError',
+  LOGIN_ERROR: 'user/loginError',
+  UPDATE_OFFER: 'offer/updateOffer',
+  LOAD_FAVORITES: 'offer/loadFavorites',
 };
 
 export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({

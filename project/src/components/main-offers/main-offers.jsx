@@ -6,7 +6,7 @@ import Map from '../map/map';
 import SortingForm from '../sorting-form/sorting-form';
 
 
-function MainOffers({offers, currentCity, handleSortTypeChange, sortType}) {
+function MainOffers({offers, currentCity, onSortTypeChange, sortType}) {
   const [activeCard, setActiveCard] = useState(0);
 
   return (
@@ -14,7 +14,7 @@ function MainOffers({offers, currentCity, handleSortTypeChange, sortType}) {
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{offers.length} places to stay in {currentCity}</b>
-        <SortingForm onSortTypeChange={handleSortTypeChange} sortType={sortType}/>
+        <SortingForm onSortTypeChange={onSortTypeChange} sortType={sortType}/>
         <PlacesList places={offers} setActiveCard={setActiveCard}/>
       </section>
       <div className="cities__right-section">
@@ -29,7 +29,7 @@ function MainOffers({offers, currentCity, handleSortTypeChange, sortType}) {
 MainOffers.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
   currentCity: PropTypes.string.isRequired,
-  handleSortTypeChange: PropTypes.func.isRequired,
+  onSortTypeChange: PropTypes.func.isRequired,
   sortType: PropTypes.string.isRequired,
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import { Redirect } from 'react-router-dom';
@@ -11,8 +11,9 @@ import GalleryItem from '../gallery-item/gallery-item';
 import PropertyItem from '../property-item/property-item';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import { PlacesListType, BookmarkClass, AppRoute } from '../../const';
-import { fetchOffersNearby } from '../../store/api-actions';
+import { fetchOffersNearby, fetchOffersReviews } from '../../store/api-actions';
 import { convertRatingToPercent, getOffersByIds } from '../../utils';
+import { getReviews, getReviewsIsLoaded } from '../../store/reviews/selectors';
 import { getOffersIsLoaded, getOffersNearbyIsLoaded, getOffersNearby, getOffers } from '../../store/offers/selectors';
 
 
@@ -23,15 +24,17 @@ function Offer() {
   const offerItem = offers.find((offer) => offer.id === Number(id));
   const offerItemIsLoaded = useSelector(getOffersIsLoaded);
   const offersNearbyIsLoaded = useSelector(getOffersNearbyIsLoaded);
+  const reviews = useSelector(getReviews);
+  const reviewsIsLoaded = useSelector(getReviewsIsLoaded);
   const dispatch = useDispatch();
   const offersNearby = getOffersByIds(offers, offersNearbyIds);
-  const [activeCard, setActiveCard] = useState(0);
 
   useEffect(() => {
     if (offerItem) {
       dispatch(fetchOffersNearby(id));
+      dispatch(fetchOffersReviews(id));
     }
-  }, [id]);
+  }, [id, offerItem, dispatch]);
 
   if (!offerItemIsLoaded) {
     return (
@@ -104,7 +107,7 @@ function Offer() {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+                  <div className={`property__avatar-wrapper user__avatar-wrapper ${offerItem.host.isPro && 'property__avatar-wrapper--pro'}`}>
                     <img className="property__avatar user__avatar" src={offerItem.host.avatarUrl} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
@@ -122,18 +125,18 @@ function Offer() {
                   </p>
                 </div>
               </div>
-              <OffersReviews offerId={id}/>
+              {reviewsIsLoaded && (<OffersReviews offerId={id} reviews={reviews} />)}
             </div>
           </div>
           <section className="property__map map">
-            {offersNearbyIsLoaded && <Map places={offersNearby} activeCardId={activeCard}/>}
+            {offersNearbyIsLoaded && <Map places={offersNearby.concat([offerItem])} activeCardId={Number(id)}/>}
           </section>
         </section>
         <div className="container">
           {offersNearbyIsLoaded && (
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <PlacesList places={offersNearby} type={PlacesListType.NEAR} setActiveCard={setActiveCard}/>
+              <PlacesList places={offersNearby} type={PlacesListType.NEAR}/>
             </section>
           )}
         </div>

@@ -6,7 +6,7 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
 import FavoriteLocation from '../favorite-location/favorite-location';
-import { sortedPlacesByCity, getOffersByIds } from '../../utils';
+import { sortPlacesByCity, getOffersByIds } from '../../utils';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import { getFavorites, getFavoritesIsLoaded, getOffers } from '../../store/offers/selectors';
 import { getAuthorizationStatus } from '../../store/user/selectors';
@@ -19,12 +19,12 @@ function Favorites() {
   const offers = useSelector(getOffers);
   const favoritesItemIsLoaded = useSelector(getFavoritesIsLoaded);
   const favoritesPlacesIds = useSelector(getFavorites);
-  const placesGroupByCity = sortedPlacesByCity(getOffersByIds(offers, favoritesPlacesIds));
+  const placesGroupByCity = sortPlacesByCity(getOffersByIds(offers, favoritesPlacesIds));
   const cities = Object.keys(placesGroupByCity);
 
   useEffect(() => {
     dispatch(fetchFavorites());
-  }, [offers]);
+  }, [offers, dispatch]);
 
   if (status !== AuthorizationStatus.AUTH) {
     return (

@@ -1,14 +1,14 @@
-import { MAX_RATING, sortOption, AuthorizationStatus, ReviewsTextLimits } from './const';
+import { MAX_RATING, sortOption, AuthorizationStatus, ReviewsTextLimit } from './const';
 
 
-export const convertRatingToPercent = (placeRating) => `${placeRating / MAX_RATING * 100}%`;
+export const convertRatingToPercent = (placeRating) => `${Math.round(placeRating) / MAX_RATING * 100}%`;
 
 export const convertSnekeToCamelCase = (data) => JSON.parse(JSON.stringify(data).replace(
   /(_\w)\w+":/g, (match) => match[1].toUpperCase() + match.substring(2),
 ));
 
 
-export const sortedPlacesByCity = (places) => {
+export const sortPlacesByCity = (places) => {
   const placesGroupByCity = {};
 
   places.forEach((place) => {
@@ -47,5 +47,7 @@ export const getOffersByIds = (offers, ids) => ids.map((id) => (
 ));
 
 export const formValidate = (reviewRating, reviewText) => (
-  reviewRating > 0 && ReviewsTextLimits.MAX >= reviewText.length && reviewText.length >= ReviewsTextLimits.MIN
+  reviewRating > 0 && ReviewsTextLimit.MAX >= reviewText.length && reviewText.length >= ReviewsTextLimit.MIN
 );
+
+export const sortReviewsByDate = (reviews) => reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
