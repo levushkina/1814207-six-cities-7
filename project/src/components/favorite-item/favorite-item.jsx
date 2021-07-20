@@ -6,9 +6,7 @@ import { BookmarkClass } from '../../const';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 
 
-function FavoriteItem(props) {
-  const {place} = props;
-
+function FavoriteItem({place}) {
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">

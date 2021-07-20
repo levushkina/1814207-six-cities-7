@@ -52,7 +52,7 @@ export const mockOffers = [
       id: 3,
       name: 'Angelina',
       avatarUrl: 'img/avatar-angelina.jpg',
-      isPro: true,
+      isPro: false,
     },
     id: 2,
     images: [
@@ -77,7 +77,7 @@ export const mockOffers = [
 
 export const mockReviews = [
   {
-    comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    comment: 'Comment a a river by the unique lightness of Amsterdam.',
     date: '2019-05-08T14:13:56.569Z',
     id: 1,
     rating: 4,
@@ -89,8 +89,8 @@ export const mockReviews = [
     }
   },
   {
-    comment: 'Hhides behind a a river by the unique lightness of Amsterdam.',
-    date: '2019-05-08T14:13:56.569Z',
+    comment: 'Comment behind a a river by the unique lightness of Amsterdam.',
+    date: '2019-06-08T14:13:56.569Z',
     id: 2,
     rating: 3,
     user: {

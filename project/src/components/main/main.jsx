@@ -14,7 +14,7 @@ function Main() {
   const [currentCity, handleCurrentCityChange, sortType, handleSortTypeChange, sortedOffers] = useSortedOffers(offers);
   const citiesBlock = () => (
     offers.length > 0 ?
-      <MainOffers offers={sortedOffers} currentCity={currentCity} handleSortTypeChange={handleSortTypeChange} sortType={sortType}/> :
+      <MainOffers offers={sortedOffers} currentCity={currentCity} onSortTypeChange={handleSortTypeChange} sortType={sortType}/> :
       <MainEmpty/>
   );
 

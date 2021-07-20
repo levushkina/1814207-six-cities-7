@@ -35,7 +35,7 @@ describe('Component: MainOffers', () => {
           <MainOffers
             offers={mockOffers}
             currentCity='Paris'
-            handleSortTypeChange={jest.fn()}
+            onSortTypeChange={jest.fn()}
             sortType={sortOption.PRICE_LOW}
           />
         </Router>

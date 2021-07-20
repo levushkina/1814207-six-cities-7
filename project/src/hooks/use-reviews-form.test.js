@@ -4,7 +4,7 @@ import { useReviewsForm } from './use-reviews-form';
 
 describe('Hook: useReviewsForm', () => {
   it('should return array with 6 elements', () => {
-    const {result} = renderHook(() => useReviewsForm(false, '', 1));
+    const {result} = renderHook(() => useReviewsForm(false, ''));
 
     const [enableSubmit, handleRatingChange, handleReviewChange, handleFormSubmit, reviewRating, reviewText] = result.current;
 
@@ -18,7 +18,7 @@ describe('Hook: useReviewsForm', () => {
   });
 
   it('should be correctly change reviewText state', () => {
-    const {result} = renderHook(() => useReviewsForm(false));
+    const {result} = renderHook(() => useReviewsForm(false, ''));
     const [, , , , , initialText] = result.current;
     let [, , handleReviewChange] = result.current;
 
@@ -29,7 +29,7 @@ describe('Hook: useReviewsForm', () => {
   });
 
   it('should be correctly change reviewRating state', () => {
-    const {result} = renderHook(() => useReviewsForm(false));
+    const {result} = renderHook(() => useReviewsForm(false, ''));
     const [, , , , initialRating] = result.current;
     let [, handleRatingChange] = result.current;
 
@@ -39,8 +39,8 @@ describe('Hook: useReviewsForm', () => {
     expect(newRating).toBe(4);
   });
 
-  it('should be correctly change state on form submit', () => {
-    const {result} = renderHook(() => useReviewsForm(false));
+  it('should be correctly change state on form submit when no reviewError', () => {
+    const {result} = renderHook(() => useReviewsForm(false, ''));
     const [, handleRatingChange, handleReviewChange, onFormSubmit, initialRating, initialText] = result.current;
 
     act(() => handleRatingChange(4));
@@ -55,5 +55,23 @@ describe('Hook: useReviewsForm', () => {
     const [, , , , clearedRating, clearedText] = result.current;
     expect(clearedRating).toBe(0);
     expect(clearedText).toBe('');
+  });
+
+  it('should no change state on form submit when reviewError exist', () => {
+    const {result} = renderHook(() => useReviewsForm(false, 'error text'));
+    const [, handleRatingChange, handleReviewChange, onFormSubmit, initialRating, initialText] = result.current;
+
+    act(() => handleRatingChange(4));
+    act(() => handleReviewChange('Amsterdam'));
+    const [, , , , changedRating, changedText] = result.current;
+
+    expect(changedRating).toBe(4);
+    expect(changedText).toBe('Amsterdam');
+
+    act(() => onFormSubmit());
+
+    const [, , , , clearedRating, clearedText] = result.current;
+    expect(clearedRating).toBe(4);
+    expect(clearedText).toBe('Amsterdam');
   });
 });

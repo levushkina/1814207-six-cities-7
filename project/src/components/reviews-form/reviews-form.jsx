@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Rating from '../rating/rating';
 import FormError from '../form-error/form-error';
-import { RATINGS, ReviewsTextLimits } from '../../const';
+import { RATINGS, ReviewsTextLimit } from '../../const';
 import { getReviewIsSending, getReviewError } from '../../store/reviews/selectors';
 import { useReviewsForm } from '../../hooks/use-reviews-form';
 import { changeReviewSendingStatus } from '../../store/action';
@@ -13,7 +13,7 @@ import { postReview } from '../../store/api-actions';
 function ReviewsForm({offerId}) {
   const reviewIsSending = useSelector(getReviewIsSending);
   const reviewError = useSelector(getReviewError);
-  const [enableSubmit, handleRatingChange, handleReviewChange, onFormSubmit, reviewRating, reviewText] = useReviewsForm(reviewIsSending);
+  const [enableSubmit, handleRatingChange, handleReviewChange, onFormSubmit, reviewRating, reviewText] = useReviewsForm(reviewIsSending, reviewError);
   const handleReviewTextChange = (event) => handleReviewChange(event.target.value);
   const dispatch = useDispatch();
 
@@ -48,7 +48,7 @@ function ReviewsForm({offerId}) {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewText}
-        maxLength={ReviewsTextLimits.MAX}
+        maxLength={ReviewsTextLimit.MAX}
         disabled={reviewIsSending}
         data-testid='rating-textarea'
       />

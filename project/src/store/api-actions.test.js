@@ -41,7 +41,6 @@ describe('Async operations', () => {
             email: 'test@mail.ru',
           },
         });
-
       });
   });
 
@@ -110,9 +109,13 @@ describe('Async operations', () => {
 
     return logoutLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOGOUT,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionType.REDIRECT_TO_ROUTE,
+          payload: AppRoute.MAIN,
         });
 
         expect(Storage.prototype.removeItem).toBeCalledTimes(1);
@@ -155,7 +158,6 @@ describe('Async operations', () => {
           type: ActionType.LOAD_REVIEWS,
           payload: [{fake: true}],
         });
-
       });
   });
 

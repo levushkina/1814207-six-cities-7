@@ -32,7 +32,7 @@ describe('Component: OffersReviews', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <OffersReviews offerId='1'/>
+          <OffersReviews offerId='1' reviews={mockReviews}/>
         </Router>
       </Provider>,
     );
@@ -56,7 +56,7 @@ describe('Component: OffersReviews', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <OffersReviews offerId='1'/>
+          <OffersReviews offerId='1' reviews={mockReviews}/>
         </Router>
       </Provider>,
     );
@@ -65,24 +65,5 @@ describe('Component: OffersReviews', () => {
     expect(screen.queryByText(/To submit review please make sure to set/i)).not.toBeInTheDocument();
   });
 
-  it('should no render reviews when reviews is not loaded', () => {
-    store = mockStore({
-      USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
-      REVIEW: {reviews: mockReviews, reviewsIsLoaded: false},
-      dispatch: jest.fn(),
-    });
-    const dispatch = jest.fn();
-    const useDispatch = jest.spyOn(Redux, 'useDispatch');
-    useDispatch.mockReturnValue(dispatch);
 
-    render(
-      <Provider store={store}>
-        <Router history={history}>
-          <OffersReviews offerId='1'/>
-        </Router>
-      </Provider>,
-    );
-
-    mockReviews.forEach((review) => expect(screen.queryByText(review.comment)).not.toBeInTheDocument());
-  });
 });

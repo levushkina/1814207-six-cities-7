@@ -57,7 +57,7 @@ export const AuthorizationStatus = {
   UNKNOWN: 'UNKNOWN',
 };
 
-export const ReviewsTextLimits = {
+export const ReviewsTextLimit = {
   MAX: 300,
   MIN: 50,
 };
