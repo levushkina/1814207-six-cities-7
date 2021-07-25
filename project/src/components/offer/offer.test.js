@@ -12,7 +12,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 
 
 const mockStore = configureStore({});
-let history = createMemoryHistory({});
+const history = createMemoryHistory({});
 
 let store = mockStore({});
 const mockOffer = mockOffers[0];
@@ -90,7 +90,7 @@ describe('Component: Offer', () => {
           <Route exact path={AppRoute.NOT_FOUND}>
             <h1>This is 404 page</h1>
           </Route>
-            <Offer />
+          <Offer />
         </Router>
       </Provider>,
     );
@@ -195,7 +195,7 @@ describe('Component: Offer', () => {
     expect(screen.getByText(/Pro/i)).toBeInTheDocument();
   });
 
-  it('should render pro label for host', () => {
+  it('should no render pro label for host', () => {
     store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.AUTH},
       OFFER: {offers: mockOffers, offersIsLoaded: true, offersNearby: [], offersNearbyIsLoaded: false},

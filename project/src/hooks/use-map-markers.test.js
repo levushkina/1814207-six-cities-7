@@ -1,8 +1,6 @@
-import { renderHook, act } from '@testing-library/react-hooks';
-import {render, screen} from '@testing-library/react';
+import { renderHook } from '@testing-library/react-hooks';
 import { useMapMarkers } from './use-map-markers';
 import { mockOffers } from '../mock/test-mocks';
-import * as React from 'react';
 
 
 const mockMap = jest.mock('leaflet', () => ({
@@ -27,7 +25,7 @@ describe('Hook useMapMarkers', () => {
   it('should return map', () => {
     mockMap.addLayer = jest.fn();
     mockMap.removeLayer = jest.fn();
-    const {result} = renderHook(() =>
+    renderHook(() =>
       useMapMarkers(mockMap, mockOffers, 1),
     );
     expect(mockMap.addLayer).toHaveBeenCalledTimes(mockOffers.length);

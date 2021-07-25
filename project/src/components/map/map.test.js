@@ -44,7 +44,7 @@ describe('Component: Map', () => {
     map.addLayer = jest.fn();
     useMapSpy.mockReturnValue(map);
 
-    const {container} = render(
+    render(
       <Provider store={store}>
         <Router history={history}>
           <Map places={mockOffers} activeCardId={1}/>

@@ -137,7 +137,7 @@ describe('Async operations', () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_OFFERS,
-          payload: [{fake: true}]
+          payload: [{fake: true}],
         });
       });
   });
@@ -193,7 +193,7 @@ describe('Async operations', () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_OFFERS_NEARBY,
-          payload: [{fake: true}]
+          payload: [{fake: true}],
         });
       });
   });
@@ -221,7 +221,7 @@ describe('Async operations', () => {
     const dispatch = jest.fn();
     const fakeReview = {
       comment: 'A quiet cozy and picturesque.',
-      rating: 4
+      rating: 4,
     };
     const reviewLoader = postReview(1, fakeReview);
 
@@ -250,7 +250,7 @@ describe('Async operations', () => {
     const dispatch = jest.fn();
     const fakeReview = {
       comment: 'A quiet cozy and picturesque.',
-      rating: 4
+      rating: 4,
     };
     const reviewLoader = postReview(1, fakeReview);
 
@@ -273,7 +273,7 @@ describe('Async operations', () => {
     const dispatch = jest.fn();
     const fakeReview = {
       comment: 'A quiet cozy and picturesque.',
-      rating: 4
+      rating: 4,
     };
     const reviewLoader = postReview(1, fakeReview);
 

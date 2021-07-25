@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 describe('Component: SortOptionItem', () => {
   it('should render SortOptionItem', () => {
     render(
-      <SortOptionItem type='PRICE_LOW' sortType='Popular' onSortTypeChange={jest.fn()}/>
+      <SortOptionItem type='PRICE_LOW' sortType='Popular' onSortTypeChange={jest.fn()}/>,
     );
 
     expect(screen.getByText('Price: low to high')).toBeInTheDocument();
@@ -16,7 +16,7 @@ describe('Component: SortOptionItem', () => {
   it('onSortTypeChange should calls when user select sort type', () => {
     const onSortTypeChange = jest.fn();
     render(
-      <SortOptionItem type='PRICE_LOW' sortType='Popular' onSortTypeChange={onSortTypeChange}/>
+      <SortOptionItem type='PRICE_LOW' sortType='Popular' onSortTypeChange={onSortTypeChange}/>,
     );
 
 

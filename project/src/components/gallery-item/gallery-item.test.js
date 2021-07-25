@@ -6,7 +6,7 @@ import GalleryItem from './gallery-item';
 describe('Component: GalleryItem', () => {
   it('should render GalleryItem', () => {
     render(
-      <GalleryItem imageUrl='www.test.ru' />
+      <GalleryItem imageUrl='www.test.ru' />,
     );
     expect(screen.getByAltText('Photo studio')).toBeInTheDocument();
   });

@@ -1,12 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Router, Route } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import * as Redux from 'react-redux';
 import { createMemoryHistory } from 'history';
 import ReviewsForm from './reviews-form';
-import { AppRoute, AuthorizationStatus } from '../../const';
 import userEvent from '@testing-library/user-event';
 import { ActionType } from '../../store/action';
 import * as Form from '../../hooks/use-reviews-form';
@@ -93,7 +92,7 @@ describe('Component: ReviewsForm', () => {
     });
     const dispatch = jest.fn();
     const useDispatch = jest.spyOn(Redux, 'useDispatch');
-    const useReviewsForm = jest.spyOn(Form, 'useReviewsForm').mockImplementation(() => [true, jest.fn(), jest.fn(), jest.fn(), 0, 'text']);
+    jest.spyOn(Form, 'useReviewsForm').mockImplementation(() => [true, jest.fn(), jest.fn(), jest.fn(), 0, 'text']);
     useDispatch.mockReturnValue(dispatch);
 
     render(
@@ -116,7 +115,7 @@ describe('Component: ReviewsForm', () => {
     const dispatch = jest.fn();
     const useDispatch = jest.spyOn(Redux, 'useDispatch');
     const handleReviewChange = jest.fn();
-    const useReviewsForm = jest.spyOn(Form, 'useReviewsForm').mockImplementation(() => [true, jest.fn(), handleReviewChange, jest.fn(), 0, '']);
+    jest.spyOn(Form, 'useReviewsForm').mockImplementation(() => [true, jest.fn(), handleReviewChange, jest.fn(), 0, '']);
     useDispatch.mockReturnValue(dispatch);
 
     render(
@@ -143,7 +142,7 @@ describe('Component: ReviewsForm', () => {
     const dispatch = jest.fn();
     const useDispatch = jest.spyOn(Redux, 'useDispatch');
     const onFormSubmit = jest.fn();
-    const useReviewsForm = jest.spyOn(Form, 'useReviewsForm').mockImplementation(() => [true, jest.fn(), jest.fn(), onFormSubmit, 0, '']);
+    jest.spyOn(Form, 'useReviewsForm').mockImplementation(() => [true, jest.fn(), jest.fn(), onFormSubmit, 0, '']);
     useDispatch.mockReturnValue(dispatch);
 
     render(

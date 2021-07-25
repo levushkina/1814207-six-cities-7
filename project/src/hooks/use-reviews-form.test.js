@@ -9,18 +9,18 @@ describe('Hook: useReviewsForm', () => {
     const [enableSubmit, handleRatingChange, handleReviewChange, handleFormSubmit, reviewRating, reviewText] = result.current;
 
     expect(result.current).toHaveLength(6);
-    expect(typeof enableSubmit).toBe('boolean')
+    expect(typeof enableSubmit).toBe('boolean');
     expect(handleRatingChange).toBeInstanceOf(Function);
     expect(handleReviewChange).toBeInstanceOf(Function);
     expect(handleFormSubmit).toBeInstanceOf(Function);
-    expect(typeof reviewRating).toBe('number')
-    expect(typeof reviewText).toBe('string')
+    expect(typeof reviewRating).toBe('number');
+    expect(typeof reviewText).toBe('string');
   });
 
   it('should be correctly change reviewText state', () => {
     const {result} = renderHook(() => useReviewsForm(false, ''));
     const [, , , , , initialText] = result.current;
-    let [, , handleReviewChange] = result.current;
+    const [, , handleReviewChange] = result.current;
 
     expect(initialText).toBe('');
     act(() => handleReviewChange('Amsterdam'));
@@ -31,7 +31,7 @@ describe('Hook: useReviewsForm', () => {
   it('should be correctly change reviewRating state', () => {
     const {result} = renderHook(() => useReviewsForm(false, ''));
     const [, , , , initialRating] = result.current;
-    let [, handleRatingChange] = result.current;
+    const [, handleRatingChange] = result.current;
 
     expect(initialRating).toBe(0);
     act(() => handleRatingChange(4));
@@ -41,7 +41,7 @@ describe('Hook: useReviewsForm', () => {
 
   it('should be correctly change state on form submit when no reviewError', () => {
     const {result} = renderHook(() => useReviewsForm(false, ''));
-    const [, handleRatingChange, handleReviewChange, onFormSubmit, initialRating, initialText] = result.current;
+    const [, handleRatingChange, handleReviewChange, onFormSubmit, , ] = result.current;
 
     act(() => handleRatingChange(4));
     act(() => handleReviewChange('Amsterdam'));
@@ -59,7 +59,7 @@ describe('Hook: useReviewsForm', () => {
 
   it('should no change state on form submit when reviewError exist', () => {
     const {result} = renderHook(() => useReviewsForm(false, 'error text'));
-    const [, handleRatingChange, handleReviewChange, onFormSubmit, initialRating, initialText] = result.current;
+    const [, handleRatingChange, handleReviewChange, onFormSubmit, , ] = result.current;
 
     act(() => handleRatingChange(4));
     act(() => handleReviewChange('Amsterdam'));

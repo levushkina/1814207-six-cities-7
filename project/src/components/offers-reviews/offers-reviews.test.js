@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Router, Route } from 'react-router-dom';
+import { Router} from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import * as Redux from 'react-redux';
 import { createMemoryHistory } from 'history';
 import OffersReviews from './offers-reviews';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AuthorizationStatus } from '../../const';
 import { mockReviews } from '../../mock/test-mocks';
 
 
@@ -46,7 +46,7 @@ describe('Component: OffersReviews', () => {
   it('should no render reviewsForm when user no auth', () => {
     store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
-      REVIEW: {reviews: mockReviews, reviewsIsLoaded: true,},
+      REVIEW: {reviews: mockReviews, reviewsIsLoaded: true},
       dispatch: jest.fn(),
     });
     const dispatch = jest.fn();

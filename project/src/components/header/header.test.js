@@ -4,9 +4,7 @@ import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import userEvent from '@testing-library/user-event';
 import Header from './header';
-import { getUserEmail } from '../../store/user/selectors';
 
 
 const mockStore = configureStore({});

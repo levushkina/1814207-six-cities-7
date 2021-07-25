@@ -1,12 +1,5 @@
 import { reviews } from './reviews';
-import {
-  ActionType,
-  loadReviews,
-  fetchReviewsError,
-  addReview,
-  changeReviewSendingStatus,
-  showReviewPostError,
-} from '../action';
+import { ActionType } from '../action';
 import { ReviewsPostError } from '../../const';
 
 const mockReviews = [{
@@ -17,9 +10,9 @@ const mockReviews = [{
   user: {
     avatarUrl: 'img/1.png',
     id: 4,
-    is_pro: false,
-    name: 'Max'
-  }
+    isPro: false,
+    name: 'Max',
+  },
 }];
 
 describe('Reducer: reviews', () => {
@@ -77,7 +70,7 @@ describe('Reducer: reviews', () => {
     expect(reviews(state, addReviewAction))
       .toEqual({
         reviews: mockReviews,
-        reviewError: ''
+        reviewError: '',
       });
   });
 
@@ -106,5 +99,4 @@ describe('Reducer: reviews', () => {
         reviewIsSending: true,
       });
   });
-
 });

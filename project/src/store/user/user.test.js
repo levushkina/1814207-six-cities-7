@@ -1,5 +1,5 @@
 import { user } from './user';
-import { ActionType, requiredAuthorization, loginError, closeSession } from '../action';
+import { ActionType } from '../action';
 import { AuthorizationStatus } from '../../const';
 
 
@@ -22,7 +22,7 @@ describe('Reducer: user', () => {
     expect(user(state, requiredAuthorizationAction))
       .toEqual({
         authorizationStatus: AuthorizationStatus.AUTH,
-        userEmail: 'test@mail.ru'
+        userEmail: 'test@mail.ru',
       });
   });
 

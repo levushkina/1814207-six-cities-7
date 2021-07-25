@@ -2,13 +2,13 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SortingForm from './sorting-form';
-import { sortOption, SORT_TYPES } from '../../const';
+import { sortOption } from '../../const';
 
 
 describe('Component: SortingForm', () => {
   it('should render SortingForm', () => {
     render(
-      <SortingForm onSortTypeChange={jest.fn()} sortType={sortOption.PRICE_LOW}/>
+      <SortingForm onSortTypeChange={jest.fn()} sortType={sortOption.PRICE_LOW}/>,
     );
 
     expect(screen.getByText(/Sort by/i)).toBeInTheDocument();
@@ -18,7 +18,7 @@ describe('Component: SortingForm', () => {
 
   it('should change  sortOptions list class on form click', () => {
     const {container} = render(
-      <SortingForm onSortTypeChange={jest.fn()} sortType={sortOption.PRICE_LOW}/>
+      <SortingForm onSortTypeChange={jest.fn()} sortType={sortOption.PRICE_LOW}/>,
     );
 
     expect(container.querySelector('.places__options')).not.toHaveClass('places__options--opened');

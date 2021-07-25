@@ -13,7 +13,7 @@ describe('Component: Rating', () => {
         reviewRating={4}
         onRatingChange={jest.fn()}
         reviewIsSending={false}
-      />
+      />,
     );
 
     const checkbox = screen.getByTestId('rating-checkbox');
@@ -28,8 +28,8 @@ describe('Component: Rating', () => {
         value={5}
         reviewRating={4}
         onRatingChange={jest.fn()}
-        reviewIsSending={true}
-      />
+        reviewIsSending
+      />,
     );
 
     const checkbox = screen.getByTestId('rating-checkbox');
@@ -45,7 +45,7 @@ describe('Component: Rating', () => {
         reviewRating={5}
         onRatingChange={jest.fn()}
         reviewIsSending={false}
-      />
+      />,
     );
 
     const checkbox = screen.getByTestId('rating-checkbox');
@@ -64,7 +64,7 @@ describe('Component: Rating', () => {
         reviewRating={5}
         onRatingChange={onRatingChange}
         reviewIsSending={false}
-      />
+      />,
     );
 
     userEvent.click(screen.getByTestId('rating-checkbox'));

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
@@ -28,7 +28,7 @@ describe('Component: PlacesList', () => {
   });
 
   it('onChange should called when placeCard is hovered', () => {
-    const setActiveCard = jest.fn()
+    const setActiveCard = jest.fn();
 
     const {container} = render(
       <Provider store={store}>

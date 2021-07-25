@@ -23,11 +23,11 @@ describe('Function: convertRatingToPercen', () => {
 describe('Function: convertSnekeToCamelCase', () => {
   it('should return camelCase', () => {
     const fakeData = {
-      image_url: 'test',
-      is_favorite: true,
-      max_adults: 4,
+      imageUrl: 'test',
+      isFavorite: true,
+      maxAdults: 4,
       host: {
-        avatar_url: 'test',
+        avatarUrl: 'test',
       },
     };
     const expectResult = {
@@ -49,20 +49,20 @@ describe('Function: sortPlacesByCity', () => {
       {id: 2, city: {name: 'Paris'}},
       {id: 3, city: {name: 'Hamburg'}},
       {id: 4, city: {name: 'Paris'}},
-      {id: 5, city: {name: 'Amsterdam'}}
+      {id: 5, city: {name: 'Amsterdam'}},
     ];
     const expectResult = {
       'Amsterdam': [
         {id: 1, city: {name: 'Amsterdam'}},
-        {id: 5, city: {name: 'Amsterdam'}}
+        {id: 5, city: {name: 'Amsterdam'}},
       ],
       'Paris': [
         {id: 2, city: {name: 'Paris'}},
         {id: 4, city: {name: 'Paris'}},
       ],
       'Hamburg': [
-        {id: 3, city: {name: 'Hamburg'}}
-      ]
+        {id: 3, city: {name: 'Hamburg'}},
+      ],
     };
     expect(sortPlacesByCity(fakeData)).toStrictEqual(expectResult);
   });
@@ -83,11 +83,11 @@ describe('Function: filterOfferByCity', () => {
       {id: 2, city: {name: 'Paris'}},
       {id: 3, city: {name: 'Hamburg'}},
       {id: 4, city: {name: 'Paris'}},
-      {id: 5, city: {name: 'Amsterdam'}}
+      {id: 5, city: {name: 'Amsterdam'}},
     ];
     const expectResult =[
       {id: 1, city: {name: 'Amsterdam'}},
-      {id: 5, city: {name: 'Amsterdam'}}
+      {id: 5, city: {name: 'Amsterdam'}},
     ];
     expect(filterOfferByCity('Amsterdam', fakeData)).toStrictEqual(expectResult);
   });
@@ -100,7 +100,7 @@ describe('Function: filterOfferByCity', () => {
         {id: 2, price: 230, rating: 5},
         {id: 3, price: 99, rating: 3.2},
         {id: 4, price: 80, rating: 4},
-        {id: 5, price: 185, rating: 2.5}
+        {id: 5, price: 185, rating: 2.5},
       ];
     });
 
@@ -110,7 +110,7 @@ describe('Function: filterOfferByCity', () => {
         {id: 3, price: 99, rating: 3.2},
         {id: 1, price: 150, rating: 4.5},
         {id: 5, price: 185, rating: 2.5},
-        {id: 2, price: 230, rating: 5}
+        {id: 2, price: 230, rating: 5},
       ];
       expect(sortOffers(sortOption.PRICE_LOW, fakeData)).toStrictEqual(expectResult);
     });
@@ -121,7 +121,7 @@ describe('Function: filterOfferByCity', () => {
         {id: 5, price: 185, rating: 2.5},
         {id: 1, price: 150, rating: 4.5},
         {id: 3, price: 99, rating: 3.2},
-        {id: 4, price: 80, rating: 4}
+        {id: 4, price: 80, rating: 4},
       ];
       expect(sortOffers(sortOption.PRICE_HIGH, fakeData)).toStrictEqual(expectResult);
     });
@@ -132,7 +132,7 @@ describe('Function: filterOfferByCity', () => {
         {id: 1, price: 150, rating: 4.5},
         {id: 4, price: 80, rating: 4},
         {id: 3, price: 99, rating: 3.2},
-        {id: 5, price: 185, rating: 2.5}
+        {id: 5, price: 185, rating: 2.5},
       ];
       expect(sortOffers(sortOption.RATING, fakeData)).toStrictEqual(expectResult);
     });
@@ -143,7 +143,7 @@ describe('Function: filterOfferByCity', () => {
         {id: 2, price: 230, rating: 5},
         {id: 3, price: 99, rating: 3.2},
         {id: 4, price: 80, rating: 4},
-        {id: 5, price: 185, rating: 2.5}
+        {id: 5, price: 185, rating: 2.5},
       ];
       expect(sortOffers(sortOption.DEFAULT, fakeData)).toStrictEqual(expectResult);
     });
@@ -164,12 +164,12 @@ describe('Function: filterOfferByCity', () => {
         {id: 2, city: {name: 'Paris'}},
         {id: 3, city: {name: 'Hamburg'}},
         {id: 4, city: {name: 'Paris'}},
-        {id: 5, city: {name: 'Amsterdam'}}
+        {id: 5, city: {name: 'Amsterdam'}},
       ];
       const expectResult = [
         {id: 1, city: {name: 'Amsterdam'}},
         {id: 4, city: {name: 'Paris'}},
-        {id: 5, city: {name: 'Amsterdam'}}
+        {id: 5, city: {name: 'Amsterdam'}},
       ];
       expect(getOffersByIds(fakeData, [1, 4, 5])).toStrictEqual(expectResult);
     });
@@ -200,9 +200,9 @@ describe('Function: filterOfferByCity', () => {
           user: {
             avatarUrl: 'img/1.png',
             id: 4,
-            is_pro: false,
-            name: 'ANN'
-          }
+            isPro: false,
+            name: 'ANN',
+          },
         },
         {
           comment: 'Comment a a river by the unique lightness of Amsterdam.',
@@ -212,10 +212,10 @@ describe('Function: filterOfferByCity', () => {
           user: {
             avatarUrl: 'img/1.png',
             id: 4,
-            is_pro: false,
-            name: 'Max'
-          }
-        }
+            isPro: false,
+            name: 'Max',
+          },
+        },
       ];
       expect(sortReviewsByDate(mockReviews)).toStrictEqual(expectResult);
     });

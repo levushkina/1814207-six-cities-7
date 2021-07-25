@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Router, Switch, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
@@ -8,7 +8,6 @@ import userEvent from '@testing-library/user-event';
 import * as Redux from 'react-redux';
 import AuthLink from './auth-link';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { ActionType } from '../../store/action';
 
 
 const mockStore = configureStore({});

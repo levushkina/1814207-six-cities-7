@@ -6,7 +6,7 @@ import MainEmpty from './main-empty';
 describe('Component: MainEmpty', () => {
   it('should render MainEmpty', () => {
     render(
-      <MainEmpty />
+      <MainEmpty />,
     );
 
     expect(screen.getByText('No places to stay available')).toBeInTheDocument();

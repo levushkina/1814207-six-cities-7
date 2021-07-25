@@ -155,7 +155,7 @@ describe('Application Routing', () => {
         <Router history={history}>
           <App />
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/Loading .../i)).toBeInTheDocument();

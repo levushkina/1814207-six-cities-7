@@ -14,7 +14,7 @@ describe('Component: ProfileLink', () => {
     render(
       <Router history={history}>
         <ProfileLink userEmail='test@mail.ru' />
-      </Router>
+      </Router>,
     );
     expect(screen.getByText('test@mail.ru')).toBeInTheDocument();
   });

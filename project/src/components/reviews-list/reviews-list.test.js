@@ -7,7 +7,7 @@ import { mockReviews } from '../../mock/test-mocks';
 describe('Component: ReviewsList', () => {
   it('should render ReviewsList', () => {
     render(
-      <ReviewsList reviews={mockReviews}/>
+      <ReviewsList reviews={mockReviews}/>,
     );
 
     mockReviews.forEach((review) => expect(screen.getByText(review.comment)).toBeInTheDocument());

@@ -1,5 +1,5 @@
 import { offers } from './offers';
-import { loadOffers, loadOffersNearby, fetchOffersNearbyError, updateOffer, loadFavorites, ActionType } from '../action';
+import { ActionType } from '../action';
 
 const mockOffers = [{
   bedRooms: 3,
@@ -101,7 +101,7 @@ describe('Reducer: offers', () => {
             isPremium: false,
             type: 'apartment',
             title: 'Beautiful & luxurious studio at great location',
-          }
+          },
         ],
       });
   });

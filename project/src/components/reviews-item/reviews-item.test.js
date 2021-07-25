@@ -11,15 +11,14 @@ const mockReview = {
   user: {
     avatarUrl: 'img/1.png',
     id: 4,
-    is_pro: false,
-    name: 'Max'
-  }
+    name: 'Max',
+  },
 };
 
 describe('Component: ReviewsItem', () => {
   it('should render ReviewsItem', () => {
     render(
-      <ReviewsItem review={mockReview}/>
+      <ReviewsItem review={mockReview}/>,
     );
 
     expect(screen.getByAltText('Reviews avatar')).toBeInTheDocument();

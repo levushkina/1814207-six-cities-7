@@ -4,7 +4,6 @@ import { DEFAULT_CITY, sortOption } from '../const';
 import { mockOffers } from '../mock/test-mocks';
 
 
-
 describe('Hook: useSordedOffers', () => {
   it('should return array with 5 elements', () => {
     const {result} = renderHook(() => useSortedOffers(mockOffers));
@@ -12,9 +11,9 @@ describe('Hook: useSordedOffers', () => {
     const [currentCity, handleCurrentCityChange, sortType, handleSortTypeChange, sortedOffers] = result.current;
 
     expect(result.current).toHaveLength(5);
-    expect(typeof currentCity).toBe('string')
+    expect(typeof currentCity).toBe('string');
     expect(handleCurrentCityChange).toBeInstanceOf(Function);
-    expect(typeof sortType).toBe('string')
+    expect(typeof sortType).toBe('string');
     expect(handleSortTypeChange).toBeInstanceOf(Function);
     expect(sortedOffers).toBeInstanceOf(Array);
   });
@@ -23,7 +22,7 @@ describe('Hook: useSordedOffers', () => {
     const {result} = renderHook(() => useSortedOffers(mockOffers));
 
     const [initialCity] = result.current;
-    let [, handleCurrentCityChange] = result.current;
+    const [, handleCurrentCityChange] = result.current;
 
     act(() => handleCurrentCityChange('Amsterdam'));
 
@@ -36,7 +35,7 @@ describe('Hook: useSordedOffers', () => {
     const {result} = renderHook(() => useSortedOffers(mockOffers));
 
     const [, , initialSortType] = result.current;
-    let [, , , handleSortTypeChange] = result.current;
+    const [, , , handleSortTypeChange] = result.current;
 
     act(() => handleSortTypeChange(sortOption.PRICE_LOW));
 

@@ -114,9 +114,9 @@ describe('Actions', () => {
       user: {
         avatarUrl: 'img/1.png',
         id: 4,
-        is_pro: false,
-        name: 'Max'
-      }
+        isPro: false,
+        name: 'Max',
+      },
     }];
     const expectedAction = {
       type: ActionType.LOAD_REVIEWS,
@@ -130,7 +130,7 @@ describe('Actions', () => {
     const newReview = {
       comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
       rating: 4,
-    }
+    };
 
     const expectedAction = {
       type: ActionType.ADD_REVIEW,

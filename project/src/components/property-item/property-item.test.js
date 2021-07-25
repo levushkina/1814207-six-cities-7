@@ -6,7 +6,7 @@ import PropertyItem from './property-item';
 describe('Component: PropertyItem', () => {
   it('should render PropertyItem', () => {
     render(
-      <PropertyItem property='Washing machine'/>
+      <PropertyItem property='Washing machine'/>,
     );
 
     expect(screen.getByText('Washing machine')).toBeInTheDocument();

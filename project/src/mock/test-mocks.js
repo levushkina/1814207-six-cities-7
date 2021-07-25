@@ -72,7 +72,7 @@ export const mockOffers = [
     rating: 4.8,
     type: 'house',
     title: 'studio at great location',
-  }
+  },
 ];
 
 export const mockReviews = [
@@ -84,9 +84,9 @@ export const mockReviews = [
     user: {
       avatarUrl: 'img/1.png',
       id: 4,
-      is_pro: false,
-      name: 'Max'
-    }
+      isPro: false,
+      name: 'Max',
+    },
   },
   {
     comment: 'Comment behind a a river by the unique lightness of Amsterdam.',
@@ -96,8 +96,8 @@ export const mockReviews = [
     user: {
       avatarUrl: 'img/1.png',
       id: 4,
-      is_pro: false,
-      name: 'ANN'
-    }
-  }
+      isPro: false,
+      name: 'ANN',
+    },
+  },
 ];
