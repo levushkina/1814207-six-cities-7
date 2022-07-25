@@ -21,7 +21,7 @@ const offers = createReducer(initialState, (builder) => {
       state.offersNearby = action.payload.map((offer) => offer.id);
       state.offersNearbyIsLoaded = true;
     })
-    .addCase(fetchOffersNearbyError, (state, action) => {
+    .addCase(fetchOffersNearbyError, (state) => {
       state.offersNearby = [];
       state.offersNearbyIsLoaded = false;
     })

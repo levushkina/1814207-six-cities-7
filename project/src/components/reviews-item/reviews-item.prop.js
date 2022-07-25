@@ -7,7 +7,7 @@ export default PropTypes.shape({
   user: PropTypes.shape({
     avatarUrl: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    isPro: PropTypes.boolean,
+    isPro: PropTypes.bool,
     name: PropTypes.string.isRequired,
   }),
   date: PropTypes.string.isRequired,
