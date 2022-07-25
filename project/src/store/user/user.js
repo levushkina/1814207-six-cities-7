@@ -10,7 +10,7 @@ const initialState = {
 
 const user = createReducer(initialState, (builder) => {
   builder
-    .addCase(loginError, (state, action) => {
+    .addCase(loginError, (state) => {
       state.authorizationStatus = AuthorizationStatus.NO_AUTH;
       state.userEmail = '';
     })
@@ -18,7 +18,7 @@ const user = createReducer(initialState, (builder) => {
       state.authorizationStatus = action.payload.status;
       state.userEmail = action.payload.email;
     })
-    .addCase(closeSession, (state, action) => {
+    .addCase(closeSession, (state) => {
       state.authorizationStatus = AuthorizationStatus.NO_AUTH;
       state.userEmail = '';
     });

@@ -64,7 +64,9 @@ export const postReview = (id, comment) => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(addReview(convertSnekeToCamelCase(data))))
     .then(() => dispatch(changeReviewSendingStatus(false)))
     .catch((error) => {
-      error.response && dispatch(showReviewPostError(error.response.status));
+      if (error.response) {
+        dispatch(showReviewPostError(error.response.status));
+      }
     })
 );
 

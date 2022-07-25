@@ -13,7 +13,7 @@ function PlacesList({places, type = PlacesListType.MAIN, setActiveCard = () => {
 
   return (
     <div className={`places__list tabs__content ${PlacesListClassName[type]}`}>
-      {places.map((place, i) => (
+      {places.map((place) => (
         <PlaceCard key={place.id}
           place={place}
           onPlaceMouseOver={onPlaceMouseOver}

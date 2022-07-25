@@ -52,7 +52,7 @@ function Favorites() {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {cities.map((city, i) => <FavoriteLocation key={city} city={city} places={placesGroupByCity[city]}/>)}
+              {cities.map((city) => <FavoriteLocation key={city} city={city} places={placesGroupByCity[city]}/>)}
             </ul>
           </section>
         </div>

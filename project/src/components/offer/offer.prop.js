@@ -16,12 +16,12 @@ export default PropTypes.shape({
   host: PropTypes.shape({
     avatarUrl: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    isPro: PropTypes.boolean,
+    isPro: PropTypes.bool,
     name: PropTypes.string.isRequired,
   }),
   images: PropTypes.array.isRequired,
-  isFavorite: PropTypes.boolean,
-  isPremium: PropTypes.boolean,
+  isFavorite: PropTypes.bool,
+  isPremium: PropTypes.bool,
   location: PropTypes.shape({
     latitude: PropTypes.number.isRequired,
     longitude: PropTypes.number.isRequired,

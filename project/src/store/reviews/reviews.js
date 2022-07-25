@@ -15,7 +15,7 @@ const reviews = createReducer(initialState, (builder) => {
       state.reviews = action.payload;
       state.reviewsIsLoaded = true;
     })
-    .addCase(fetchReviewsError, (state, action) => {
+    .addCase(fetchReviewsError, (state) => {
       state.reviews = [];
       state.reviewsIsLoaded = false;
     })
